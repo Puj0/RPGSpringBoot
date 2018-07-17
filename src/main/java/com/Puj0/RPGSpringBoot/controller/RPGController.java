@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RPGController {
 
     @Autowired
-    @Qualifier(value = "gameService")
     private IGameService gameService;
 
     @RequestMapping(value = "/acters",
@@ -25,12 +25,12 @@ public class RPGController {
         return this.gameService.getAll();
     }
 
-    @RequestMapping(value = "/games/start",
+    @RequestMapping(value = "/games/start/{rounds}",
             method = RequestMethod.GET,
-            produces = MediaType.TEXT_PLAIN_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String startGame(){
-        return gameService.startGame();
+    public String startGame(@PathVariable int rounds){
+        return gameService.startGame(rounds);
     }
 
 //    @RequestMapping(value = "/add/acter/{name},{health}",

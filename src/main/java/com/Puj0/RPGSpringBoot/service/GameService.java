@@ -22,16 +22,17 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public void createGame() {
+    public void createGame(int rounds) {
         game = new Game.GameBuilder(rounds)
                 .addPrinter(Printer.getInstance())
-//                .addActers(acterRepository)
+                .addActers(acterRepository.findAll())
                 .addCommandDispatcher(new CommandDispatcher())
                 .build();
     }
 
     @Override
-    public String startGame() {
-        return String.valueOf(game.runGame());
+    public String startGame(int rounds) {
+        createGame(rounds);
+        return game.runGame();
     }
 }

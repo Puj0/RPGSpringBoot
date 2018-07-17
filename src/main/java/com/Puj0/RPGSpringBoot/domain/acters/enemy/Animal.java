@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Animal")
 public class Animal extends Enemy implements IAnimal {
 
+    public Animal(){}
+
     public Animal(String name, int healthPoints, int attack, int defence, int initiative) {
         super.setName(name);
         super.setHealthPoints(healthPoints);
         super.setAttack(attack);
         super.setDefence(defence);
         super.setInitiative(initiative);
-        super.setAggressive(false);
+        super.setAggressive(Boolean.FALSE);
         System.out.println(name + ", " + healthPoints + "hp, " + attack + "att, "
                 + defence + "def, " + initiative + "init.");
     }
@@ -34,8 +36,8 @@ public class Animal extends Enemy implements IAnimal {
     }
 
     @Override
-    public boolean isMain() {
-        return false;
+    public Boolean isMain() {
+        return Boolean.FALSE;
     }
 
     @Override

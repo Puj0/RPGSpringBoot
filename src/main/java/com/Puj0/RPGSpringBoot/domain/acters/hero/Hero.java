@@ -11,6 +11,8 @@ public class Hero extends Acter implements IHero {
 
     private RoleClass role;
 
+    public Hero(){}
+
     public Hero(String name, RoleClass role, int healthPoints, int attack, int defence,
                 int initiative) {
         super();
@@ -61,7 +63,12 @@ public class Hero extends Acter implements IHero {
     }
 
     @Override
-    public boolean isMain() {
-        return true;
+    public void setMain(Boolean main) {
+        super.setMain(main);
+    }
+
+    @Override
+    public Boolean isMain() {
+        return Boolean.TRUE;
     }
 }

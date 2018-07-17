@@ -7,22 +7,22 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Enemy extends Acter implements IEnemy {
 
-    private boolean aggressive;
+    private Boolean aggressive;
 
     public void takeDamage(int damage) {
         setHealthPoints(getHealthPoints() - damage);
-        if (!aggressive) {
-            setAggressive(true);
+        if (aggressive == null || !aggressive) {
+            setAggressive(Boolean.TRUE);
         }
     }
 
     @Override
-    public boolean isAggressive() {
+    public Boolean isAggressive() {
         return aggressive;
     }
 
     @Override
-    public void setAggressive(boolean aggressive) {
+    public void setAggressive(Boolean aggressive) {
         this.aggressive = aggressive;
     }
 

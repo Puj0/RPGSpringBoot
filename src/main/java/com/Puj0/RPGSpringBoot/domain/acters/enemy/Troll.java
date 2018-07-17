@@ -6,14 +6,17 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "Troll")
 public class Troll extends Enemy implements ITroll {
-    Troll(String name, int healthPoints, int attack, int defence, int initiative, boolean aggressive) {
+
+    public Troll(){}
+
+    public Troll(String name, int healthPoints, int attack, int defence, int initiative) {
         super();
         super.setName(name);
         super.setHealthPoints(healthPoints);
         super.setAttack(attack);
         super.setDefence(defence);
         super.setInitiative(initiative);
-        super.setAggressive(aggressive);
+        super.setAggressive(Boolean.TRUE);
         System.out.println(name + ", " + healthPoints + "hp, " + attack + "att, " + defence
                 + "def, " + initiative + "init.");
     }
@@ -34,7 +37,7 @@ public class Troll extends Enemy implements ITroll {
 
 
     @Override
-    public boolean isMain() {
-        return true;
+    public Boolean isMain() {
+        return Boolean.TRUE;
     }
 }

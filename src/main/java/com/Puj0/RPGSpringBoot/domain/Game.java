@@ -57,7 +57,7 @@ public class Game {
             if (currentRound == 0)
                 currentRound++;
             printer.println("It took " + (currentRound - 1) + " rounds.");
-            return outcome + "It took " + (currentRound - 1) + " rounds.";
+            return outcome + "\nIt took " + (currentRound - 1) + " rounds.";
         } else {
             printer.println(TIMES_UP);
             return TIMES_UP;
@@ -127,11 +127,11 @@ public class Game {
             return this;
         }
 
-//        public GameBuilder addActers(ActerRepository actersRepository) {
-//            for (ActerWithInitiative acter : actersRepository.getSortedActers().getArray())
-//                acters.addActer(acter);
-//            return this;
-//        }
+        public GameBuilder addActers(Iterable<Acter> sortedActers) {
+            for (Acter acter : sortedActers)
+                acters.addActer(new ActerWithInitiative(acter,random));
+            return this;
+        }
 
         public GameBuilder addCommandDispatcher(CommandDispatcher commandDispatcher) {
             this.commandDispatcher = commandDispatcher;

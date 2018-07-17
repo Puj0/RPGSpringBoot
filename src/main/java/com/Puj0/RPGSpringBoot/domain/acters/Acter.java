@@ -22,7 +22,7 @@ public abstract class Acter {
     @Column(nullable = false)
     private int initiative;
     @Column
-    private boolean main;
+    private Boolean main;
 
     public Long getId() {
         return id;
@@ -78,11 +78,11 @@ public abstract class Acter {
         }
     }
 
-    public void setMain(boolean main){
+    public void setMain(Boolean main){
         this.main = main;
     }
 
-    public boolean isMain() {
+    public Boolean isMain() {
         return main;
     }
 }

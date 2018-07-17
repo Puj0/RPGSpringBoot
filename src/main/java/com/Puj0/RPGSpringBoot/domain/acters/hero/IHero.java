@@ -10,5 +10,5 @@ public interface IHero {
 
     void setRoleClass(RoleClass role);
 
-    boolean isMain();
+    Boolean isMain();
 }

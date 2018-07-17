@@ -4,5 +4,5 @@ public interface ITroll extends IEnemy{
 
     void replenishHealth();
 
-    boolean isMain();
+    Boolean isMain();
 }

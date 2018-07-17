@@ -4,5 +4,5 @@ public interface IAnimal {
 
     void defend(int damage);
     void replenishHealth();
-    boolean isMain();
+    Boolean isMain();
 }
