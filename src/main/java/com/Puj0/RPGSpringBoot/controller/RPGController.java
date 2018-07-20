@@ -29,6 +29,7 @@ public class RPGController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Iterable<Acter> getActers() {
+        acterService.removeDeadActersFromDatabase();
         return this.gameService.getAll();
     }
 

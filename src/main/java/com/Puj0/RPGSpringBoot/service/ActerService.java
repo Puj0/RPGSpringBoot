@@ -38,6 +38,7 @@ public class ActerService implements IActerService {
 
     @Override
     public Iterable<Acter> allActers() {
+        removeDeadActersFromDatabase();
         return repository.findAll();
     }
 
@@ -76,6 +77,14 @@ public class ActerService implements IActerService {
     public void addActersToDatabase(SortedActersList acters){
         for (ActerWithInitiative acter : acters.getArray()) {
             repository.save(acter.getActer());
+        }
+    }
+
+    public void removeDeadActersFromDatabase(){
+        for(Acter acter : repository.findAll()){
+            if (acter.getHealthPoints() <= 0){
+                repository.delete(acter);
+            }
         }
     }
 }

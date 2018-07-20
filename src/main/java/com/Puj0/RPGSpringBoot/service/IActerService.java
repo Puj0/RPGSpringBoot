@@ -8,4 +8,6 @@ public interface IActerService {
     public void createActers(int range);
 
     public Iterable<Acter> allActers();
+
+    void removeDeadActersFromDatabase();
 }
