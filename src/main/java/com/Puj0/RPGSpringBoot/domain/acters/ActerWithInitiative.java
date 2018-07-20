@@ -2,6 +2,7 @@ package com.Puj0.RPGSpringBoot.domain.acters;
 
 import com.Puj0.RPGSpringBoot.domain.Derandomizer;
 import com.Puj0.RPGSpringBoot.domain.IRandom;
+import com.Puj0.RPGSpringBoot.domain.ThreadRandom;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ public class ActerWithInitiative {
     private Acter acter;
     private int initiative;
 
-    private IRandom random = new Derandomizer();
+    private IRandom random = new ThreadRandom();
 
     public ActerWithInitiative(Acter acter, IRandom random){
         this.acter = acter;

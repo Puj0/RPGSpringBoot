@@ -10,6 +10,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.enemy.Troll;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import com.Puj0.RPGSpringBoot.repository.ActerRepository;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class ActerService implements IActerService {
 
     private IRandom random = new ThreadRandom();
     private SortedActersList sortedActers = new SortedActersList();
+    private Faker faker = new Faker();
 
     @Autowired
     private ActerRepository repository;
@@ -41,7 +43,7 @@ public class ActerService implements IActerService {
 
     private void createHeroes(int numOfHeroes) {
         for (int i = 0; i < numOfHeroes; i++) {
-            Hero newHero = new Hero("Hero " + (i + 1), RoleClass.values()[i % RoleClass.values().length],
+            Hero newHero = new Hero(faker.lordOfTheRings().character(), RoleClass.values()[i % RoleClass.values().length],
                     random.nextInt(10, 26), random.nextInt(3, 11),
                     random.nextInt(2, 7), random.nextInt(1, 10));
             addActerToSortedActers(newHero);
@@ -54,12 +56,12 @@ public class ActerService implements IActerService {
             boolean isTroll = (trollDoesNotExist) || (random.nextInt(1, 11) % 2) == 1;
             if (isTroll) {
                 trollDoesNotExist = false;
-                Troll newTroll = new Troll("Troll " + (i + 1), random.nextInt(10, 26),
+                Troll newTroll = new Troll(faker.rickAndMorty().character(), random.nextInt(10, 26),
                         random.nextInt(3, 11), random.nextInt(2, 7),
                         random.nextInt(1, 10));
                 addActerToSortedActers(newTroll);
             } else {
-                Animal newAnimal = new Animal("Animal " + (i + 1), random.nextInt(5, 16),
+                Animal newAnimal = new Animal(faker.pokemon().name(), random.nextInt(5, 16),
                         random.nextInt(0, 6), random.nextInt(2, 5),
                         random.nextInt(1, 5));
                 addActerToSortedActers(newAnimal);

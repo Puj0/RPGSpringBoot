@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"/>
     <title>Role Play Game</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h2>Acters</h2>
-    <table class="table table-striped">
+    <table>
         <thead>
         <tr>
             <th>ID</th>
@@ -22,29 +39,29 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:each="acter : ${acters}">
-                <td th:text="${acter.id}">null</td>
-                <td th:text="${acter.className}">null</td>
-                <td th:text="${acter.name}">null</td>
-                <td th:text="${acter.attack}">null</td>
-                <td th:text="${acter.defence}">null</td>
-                <td th:text="${acter.initiative}">null</td>
-                <td th:text="${acter.main}">null</td>
-                <td th:if="${acter != null}" th:text="${acter.roleClass}">null</td>
-                <td th:text="${acter.healthPoints}">null</td>
-            </tr>
+        <tr th:each="acter : ${acters}">
+            <td th:text="${acter.id}">null</td>
+            <td th:text="${acter.className}">null</td>
+            <td th:text="${acter.name}">null</td>
+            <td th:text="${acter.attack}">null</td>
+            <td th:text="${acter.defence}">null</td>
+            <td th:text="${acter.initiative}">null</td>
+            <td th:text="${acter.main}">null</td>
+            <td th:if="${acter != null}" th:text="${acter.roleClass}">null</td>
+            <td th:text="${acter.healthPoints}">null</td>
+        </tr>
         </tbody>
     </table>
-    <form method="GET" th:action="@{/games/start/}" modelAttribute = "rounds">
-        <input type="number" name = "rounds" th:value="*{rounds}" >
+    <form method="GET" th:action="@{/games/start/}" modelAttribute="rounds">
+        <input type="number" name="rounds" th:value="*{rounds}">
         <button type="submit" class="form-control">Start Game</button>
     </form>
-    <form method="GET" th:action="@{/createActers/}" modelAttribute = "range">
-        <input type="number" name = "range" th:value="*{range}" >
+    <form method="GET" th:action="@{/createActers/}" modelAttribute="range">
+        <input type="number" name="range" th:value="*{range}">
         <input type="submit" value="Create Acters">
     </form>
-    <form method="GET" th:action="@{/result/}" modelAttribute = "id">
-        <input type="number" name = "id" th:value="*{id}">
+    <form method="GET" th:action="@{/result/}" modelAttribute="id">
+        <input type="number" name="id" th:value="*{id}">
         <input type="submit" value="Get Result">
     </form>
 
