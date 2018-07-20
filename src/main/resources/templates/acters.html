@@ -35,17 +35,16 @@
             </tr>
         </tbody>
     </table>
-    <!--Treba napraviti da se vrednost polja prosledi kao url th:field="*{id}"-->
-    <form method="GET" th:action="@{/games/start/10}">
-        <input type="number" class="form-control" >
+    <form method="GET" th:action="@{/games/start/}" modelAttribute = "rounds">
+        <input type="number" name = "rounds" th:value="*{rounds}" >
         <button type="submit" class="form-control">Start Game</button>
     </form>
-    <form method="POST" th:action="@{/createActers/10}">
-        <input type="number" class="create_acters" >
+    <form method="GET" th:action="@{/createActers/}" modelAttribute = "range">
+        <input type="number" name = "range" th:value="*{range}" >
         <input type="submit" value="Create Acters">
     </form>
-    <form method="GET" th:action="@{/result/1}">
-        <input type="number" class="form-control" >
+    <form method="GET" th:action="@{/result/}" modelAttribute = "id">
+        <input type="number" name = "id" th:value="*{id}">
         <input type="submit" value="Get Result">
     </form>
 

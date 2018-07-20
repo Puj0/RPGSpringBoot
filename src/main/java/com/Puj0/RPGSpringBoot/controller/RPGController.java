@@ -32,11 +32,11 @@ public class RPGController {
         return this.gameService.getAll();
     }
 
-    @RequestMapping(value = "/games/start/{rounds}",
+    @RequestMapping(value = "/games/start/",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String startGame(@PathVariable String rounds) {
+    public String startGame(@ModelAttribute("rounds") String rounds) {
         System.out.println("Rounds = " + rounds);
         String result = gameService.startGame(Integer.parseInt(rounds));
         gameService.saveGame();
@@ -44,19 +44,19 @@ public class RPGController {
     }
 
 
-    @RequestMapping(value = "/createActers/{range}")
-    public String createActers(@PathVariable String range, Model model) {
+    @RequestMapping(value = "/createActers/")
+    public String createActers(@ModelAttribute("range") String range, Model model) {
         System.out.println("Range = " + range);
         acterService.createActers(Integer.parseInt(range));
         model.addAttribute("acters", acterService.allActers());
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "result/{id}",
+    @RequestMapping(value = "/result/",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getGameResult(@PathVariable String id) {
+    public String getGameResult(@ModelAttribute("id") String id) {
         System.out.println("ID = " + id);
         if (gameService.getGame(Long.parseLong(id)).isPresent()) {
             return gameService.getGame(Long.parseLong(id)).get().getResult();
