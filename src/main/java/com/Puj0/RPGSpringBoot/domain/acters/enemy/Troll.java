@@ -21,6 +21,10 @@ public class Troll extends Enemy implements ITroll {
                 + "def, " + initiative + "init.");
     }
 
+    public String getClassName(){
+        return "Troll";
+    }
+
     @Override
     public void defend(int damage) {
         if (damage < 0) throw new IllegalArgumentException("Damage cannot be negative");

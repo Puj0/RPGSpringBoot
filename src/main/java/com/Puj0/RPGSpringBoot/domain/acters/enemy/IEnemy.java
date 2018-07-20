@@ -2,7 +2,7 @@ package com.Puj0.RPGSpringBoot.domain.acters.enemy;
 
 public interface IEnemy {
 
-    Boolean isAggressive();
+    Boolean getAggressive();
 
     void setAggressive(Boolean aggressive);
 }

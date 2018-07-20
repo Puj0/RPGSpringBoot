@@ -1,5 +1,7 @@
 package com.Puj0.RPGSpringBoot.domain.acters;
 
+import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +10,7 @@ import javax.persistence.*;
 public abstract class Acter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(nullable = false)
@@ -21,8 +23,13 @@ public abstract class Acter {
     private int defence;
     @Column(nullable = false)
     private int initiative;
-    @Column
     private Boolean main;
+
+    @Transient
+    private String className;
+
+    @Transient
+    public RoleClass roleClass;
 
     public Long getId() {
         return id;
@@ -77,6 +84,8 @@ public abstract class Acter {
             healthPoints -= damage;
         }
     }
+
+    public abstract String getClassName();
 
     public void setMain(Boolean main){
         this.main = main;

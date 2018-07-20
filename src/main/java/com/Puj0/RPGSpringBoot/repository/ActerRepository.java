@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ActerRepository extends CrudRepository<Acter, Long> {
 
-//    void createCharacters(int numberOfHeroes, int range);
+//    void createActers(int numberOfHeroes, int range);
 //    SortedActersList getSortedActers();
 //    void addActersToDatabase(ActerWithInitiative[] acters);
 

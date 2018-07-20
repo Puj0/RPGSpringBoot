@@ -18,13 +18,13 @@ public class Attack implements Command{
     @Override
     public void execute() {
 
-        if (attacker instanceof Enemy){
-            if (((Enemy) attacker).isAggressive()){
-                doDamage();
-            }
-        } else {
+//        if (attacker instanceof Enemy){
+//            if (((Enemy) attacker).getAggressive()){
+//                doDamage();
+//            }
+//        } else {
             doDamage();
-        }
+//        }
     }
 
     private void doDamage() {

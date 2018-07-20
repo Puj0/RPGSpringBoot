@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Hero")
 public class Hero extends Acter implements IHero {
 
-    private RoleClass role;
+    public RoleClass roleClass;
 
     public Hero(){}
 
@@ -42,13 +42,18 @@ public class Hero extends Acter implements IHero {
     }
 
     @Override
+    public String getClassName(){
+        return "Hero";
+    }
+
+    @Override
     public RoleClass getRoleClass() {
-        return role;
+        return roleClass;
     }
 
     @Override
     public void setRoleClass(RoleClass role) {
-        this.role = role;
+        this.roleClass = role;
     }
 
     @Override

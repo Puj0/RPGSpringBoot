@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"/>
+    <title>Role Play Game</title>
+</head>
+<body>
+<div class="container">
+    <h2>Acters</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Class Name</th>
+            <th>Name</th>
+            <th>Attack</th>
+            <th>Defence</th>
+            <th>Initiative</th>
+            <th>Main</th>
+            <th>RoleClass</th>
+            <th>Health Points</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="acter : ${acters}">
+                <td th:text="${acter.id}">null</td>
+                <td th:text="${acter.className}">null</td>
+                <td th:text="${acter.name}">null</td>
+                <td th:text="${acter.attack}">null</td>
+                <td th:text="${acter.defence}">null</td>
+                <td th:text="${acter.initiative}">null</td>
+                <td th:text="${acter.main}">null</td>
+                <td th:if="${acter != null}" th:text="${acter.roleClass}">null</td>
+                <td th:text="${acter.healthPoints}">null</td>
+            </tr>
+        </tbody>
+    </table>
+    <!--Treba napraviti da se vrednost polja prosledi kao url th:field="*{id}"-->
+    <form method="GET" th:action="@{/games/start/10}">
+        <input type="number" class="form-control" >
+        <button type="submit" class="form-control">Start Game</button>
+    </form>
+    <form method="POST" th:action="@{/createActers/10}">
+        <input type="number" class="create_acters" >
+        <input type="submit" value="Create Acters">
+    </form>
+    <form method="GET" th:action="@{/result/1}">
+        <input type="number" class="form-control" >
+        <input type="submit" value="Get Result">
+    </form>
+
+</div>
+</body>
+</html>

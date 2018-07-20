@@ -20,6 +20,10 @@ public class Animal extends Enemy implements IAnimal {
                 + defence + "def, " + initiative + "init.");
     }
 
+    public String getClassName(){
+        return "Animal";
+    }
+
     @Override
     public void defend(int damage) {
         if (damage < 0) throw new IllegalArgumentException("Damage cannot be negative");

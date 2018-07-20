@@ -8,29 +8,52 @@ import com.Puj0.RPGSpringBoot.domain.acters.enemy.Troll;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
 public class Game {
 
     private final String HEROES_LOST = "Heroes lost!";
     private final String HEROES_WON = "Heroes were victorious";
     private final String TIMES_UP = "Time's up!";
 
-    private SortedActersList acters;
-    private ArrayList<Acter> removedActers = new ArrayList<>();
-    private int currentRound;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String result;
+
+    @Column
     private int totalRounds;
+    @Transient
+    private SortedActersList acters;
+
+    @Transient
+    private ArrayList<Acter> removedActers = new ArrayList<>();
+    @Transient
+    private int currentRound;
+    @Transient
     private CommandDispatcher dispatcher;
+    @Transient
     private Printer printer;
+    @Transient
     private IRandom random = new ThreadRandom();
+    public Game() {
+    }
 
     private Game(GameBuilder builder){
         this.acters = builder.acters;
         totalRounds = builder.totalRounds;
         dispatcher = builder.commandDispatcher;
         printer = builder.printer;
+    }
+
+    public String getResult() {
+        return result;
     }
 
     public String runGame(){
@@ -41,7 +64,7 @@ public class Game {
     private void printCharacterInitiatives() {
         for (ActerWithInitiative acterWithInitiative : acters.getArray()) {
             printer.println(acterWithInitiative.getActer().getName() +
-                    "has initiative: " + acterWithInitiative.getInitiative());
+                    " has initiative: " + acterWithInitiative.getInitiative());
         }
     }
 
@@ -57,11 +80,18 @@ public class Game {
             if (currentRound == 0)
                 currentRound++;
             printer.println("It took " + (currentRound - 1) + " rounds.");
-            return outcome + "\nIt took " + (currentRound - 1) + " rounds.";
+            outcome = outcome + "\nIt took " + (currentRound - 1) + " rounds.";
+            saveResult(outcome);
+            return outcome;
         } else {
             printer.println(TIMES_UP);
+            saveResult(TIMES_UP);
             return TIMES_UP;
         }
+    }
+
+    private void saveResult(String outcome) {
+        result = outcome;
     }
 
     private boolean gameDone() {
@@ -95,12 +125,13 @@ public class Game {
     private String outcome() {
         if (getRaceSize(Hero.class) == 0) {
             printer.println(HEROES_LOST);
+            saveResult(HEROES_LOST);
             return HEROES_LOST;
-            //TODO: addResultToDatabase(HEROES_LOST);
+
         } else {
             printer.println(HEROES_WON);
+            saveResult(HEROES_WON);
             return HEROES_WON;
-            //TODO: addResultToDatabase(HEROES_WON);
         }
     }
 

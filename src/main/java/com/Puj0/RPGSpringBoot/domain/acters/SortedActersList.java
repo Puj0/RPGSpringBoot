@@ -1,6 +1,8 @@
 package com.Puj0.RPGSpringBoot.domain.acters;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class SortedActersList {
@@ -16,6 +18,14 @@ public class SortedActersList {
 
     public ActerWithInitiative[] getArray() {
         return Arrays.copyOfRange(array, 0, size);
+    }
+
+    public List<Acter> getActerList(){
+        List<Acter> acters = new ArrayList<>();
+        for (ActerWithInitiative acter : getArray()){
+            acters.add(acter.getActer());
+        }
+        return acters;
     }
 
     public void addActer(ActerWithInitiative acter) {

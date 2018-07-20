@@ -1,15 +1,13 @@
 package com.Puj0.RPGSpringBoot.controller;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
+import com.Puj0.RPGSpringBoot.service.IActerService;
 import com.Puj0.RPGSpringBoot.service.IGameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RPGController {
@@ -17,11 +15,20 @@ public class RPGController {
     @Autowired
     private IGameService gameService;
 
+    @Autowired
+    private IActerService acterService;
+
+    @RequestMapping({"index", "", "/"})
+    String index(Model model) {
+        model.addAttribute("acters", acterService.allActers());
+        return "acters";
+    }
+
     @RequestMapping(value = "/acters",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Iterable<Acter> getActers(){
+    public Iterable<Acter> getActers() {
         return this.gameService.getAll();
     }
 
@@ -29,14 +36,33 @@ public class RPGController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String startGame(@PathVariable int rounds){
-        return gameService.startGame(rounds);
+    public String startGame(@PathVariable String rounds) {
+        System.out.println("Rounds = " + rounds);
+        String result = gameService.startGame(Integer.parseInt(rounds));
+        gameService.saveGame();
+        return result;
     }
 
-//    @RequestMapping(value = "/add/acter/{name},{health}",
-//    method = RequestMethod.POST,
-//    consumes = "application/json")
-//    public ResponseEntity<>
 
+    @RequestMapping(value = "/createActers/{range}")
+    public String createActers(@PathVariable String range, Model model) {
+        System.out.println("Range = " + range);
+        acterService.createActers(Integer.parseInt(range));
+        model.addAttribute("acters", acterService.allActers());
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "result/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getGameResult(@PathVariable String id) {
+        System.out.println("ID = " + id);
+        if (gameService.getGame(Long.parseLong(id)).isPresent()) {
+            return gameService.getGame(Long.parseLong(id)).get().getResult();
+        } else {
+            return "Game with ID: " + id + " doesn't exist.";
+        }
+    }
 
 }
