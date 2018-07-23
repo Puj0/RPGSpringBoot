@@ -7,18 +7,25 @@ import com.Puj0.RPGSpringBoot.domain.acters.enemy.Animal;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Troll;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
+import lombok.Getter;
+import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
+@Getter
+@Setter
 @Entity
 public class Game {
 
-    private final String HEROES_LOST = "Heroes lost!";
-    private final String HEROES_WON = "Heroes were victorious";
-    private final String TIMES_UP = "Time's up!";
+    private static final String HEROES_LOST = "Heroes lost!";
+    private static final String HEROES_WON = "Heroes were victorious";
+    private static final String TIMES_UP = "Time's up!";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,64 +36,66 @@ public class Game {
 
     @Column
     private int totalRounds;
+
     @Transient
     private SortedActersList acters;
 
     @Transient
     private ArrayList<Acter> removedActers = new ArrayList<>();
+
     @Transient
     private int currentRound;
+
     @Transient
     private CommandDispatcher dispatcher;
-    @Transient
-    private Printer printer;
+
     @Transient
     private IRandom random = new ThreadRandom();
-    public Game() {
-    }
 
-    private Game(GameBuilder builder){
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
+
+    private Game(GameBuilder builder) {
         this.acters = builder.acters;
         totalRounds = builder.totalRounds;
         dispatcher = builder.commandDispatcher;
-        printer = builder.printer;
     }
 
     public String getResult() {
         return result;
     }
 
-    public String runGame(){
-        printCharacterInitiatives();
-        return runUntilDone(totalRounds);
+    public Game runGame() {
+        logCharacterInitiatives();
+        runUntilDone(totalRounds);
+        return this;
     }
 
-    private void printCharacterInitiatives() {
+    private void logCharacterInitiatives() {
         for (ActerWithInitiative acterWithInitiative : acters.getArray()) {
-            printer.println(acterWithInitiative.getActer().getName() +
-                    " has initiative: " + acterWithInitiative.getInitiative());
+            logger.info("{} has initiative: {}.", acterWithInitiative.getActer().getName(), acterWithInitiative.getInitiative());
         }
     }
 
-    private String runUntilDone(int rounds) {
-        for (currentRound = 0; currentRound < rounds; currentRound++){
+    private void runUntilDone(int rounds) {
+        for (currentRound = 0; currentRound < rounds; currentRound++) {
             if (gameDone()) {
                 break;
             }
             runRound();
         }
-        if (gameDone()){
+
+        if (gameDone()) {
             String outcome = outcome();
-            if (currentRound == 0)
+            if (currentRound == 0) {
                 currentRound++;
-            printer.println("It took " + (currentRound - 1) + " rounds.");
+            }
+            logger.info("It took {} rounds.", currentRound - 1);
             outcome = outcome + "\nIt took " + (currentRound - 1) + " rounds.";
             saveResult(outcome);
-            return outcome;
         } else {
-            printer.println(TIMES_UP);
+
+            logger.info(TIMES_UP);
             saveResult(TIMES_UP);
-            return TIMES_UP;
         }
     }
 
@@ -96,7 +105,10 @@ public class Game {
 
     private boolean gameDone() {
         return Arrays.stream(acters.getArray())
-                .filter(acterWithInitiative -> acterWithInitiative.getActer().isMain())
+                .filter(acterWithInitiative ->
+                        acterWithInitiative.
+                                getActer().
+                                isMain())
                 .map(a -> a.getActer().getClass())
                 .distinct()
                 .count() < 2;
@@ -105,14 +117,12 @@ public class Game {
     private void runRound() {
         Round round = new Round(acters, removedActers, dispatcher, random);
         round.runRound();
-        stateAtTheEndOfTheRound();
+        logStateAtTheEndOfTheRound();
     }
 
-    private void stateAtTheEndOfTheRound() {
-        printer.println("End of round " + (currentRound + 1) + ". \n" +
-                "Heroes - Trolls - Animals \n" +
-                getRaceSize(Hero.class) + "\t\t" + getRaceSize(Troll.class) + "\t\t" +
-                getRaceSize(Animal.class));
+    private void logStateAtTheEndOfTheRound() {
+        logger.info("End of round {}. \nHeroes - Trolls - Animals \n{}\t\t{}\t\t{}",
+                currentRound + 1, getRaceSize(Hero.class), getRaceSize(Troll.class), getRaceSize(Animal.class));
     }
 
     private int getRaceSize(Class<? extends Acter> acterClass) {
@@ -124,28 +134,27 @@ public class Game {
 
     private String outcome() {
         if (getRaceSize(Hero.class) == 0) {
-            printer.println(HEROES_LOST);
+            logger.info(HEROES_LOST);
             saveResult(HEROES_LOST);
             return HEROES_LOST;
-
-        } else {
-            printer.println(HEROES_WON);
-            saveResult(HEROES_WON);
-            return HEROES_WON;
         }
+
+        logger.info(HEROES_WON);
+        saveResult(HEROES_WON);
+        return HEROES_WON;
     }
 
     public static class GameBuilder {
         private SortedActersList acters;
         private int totalRounds;
         private CommandDispatcher commandDispatcher;
-        private Printer printer;
         private IRandom random = new ThreadRandom();
 
-        public GameBuilder(int rounds){
+        public GameBuilder(int rounds) {
             this.totalRounds = rounds;
             acters = new SortedActersList();
         }
+
         public GameBuilder addRace(List<Acter> acters) {
             for (Acter acter : acters) {
                 this.acters.addActer(new ActerWithInitiative(acter, random));
@@ -153,14 +162,9 @@ public class Game {
             return this;
         }
 
-        public GameBuilder addPrinter(Printer printer) {
-            this.printer = printer;
-            return this;
-        }
-
         public GameBuilder addActers(Iterable<Acter> sortedActers) {
             for (Acter acter : sortedActers)
-                acters.addActer(new ActerWithInitiative(acter,random));
+                acters.addActer(new ActerWithInitiative(acter, random));
             return this;
         }
 
@@ -170,11 +174,11 @@ public class Game {
         }
 
         public Game build() {
-            if (acters == null || printer == null || commandDispatcher == null) {
+            if (acters == null || commandDispatcher == null) {
                 try {
-                    throw new Exception("Acters, printer and/or dispatcher is null");
+                    throw new MissingFormatArgumentException("Acters, and/or dispatcher is null");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("Acters, and/or dispatcher is null",e);
                 }
             }
             return new Game(this);

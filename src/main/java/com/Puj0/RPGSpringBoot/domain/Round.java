@@ -7,19 +7,21 @@ import com.Puj0.RPGSpringBoot.domain.command.Command;
 import com.Puj0.RPGSpringBoot.domain.command.CommandAbstractFactory;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 import com.Puj0.RPGSpringBoot.domain.command.CommandFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Round {
+class Round {
 
     private SortedActersList acters;
     private ArrayList<Acter> removedActers;
     private CommandDispatcher dispatcher;
     private CommandAbstractFactory commandFactory = new CommandFactory();
     private IRandom random;
-    private Printer printer = Printer.getInstance();
+    private static final Logger logger = LoggerFactory.getLogger(Round.class);
 
     Round(SortedActersList acters, ArrayList<Acter> removedActers, CommandDispatcher dispatcher, IRandom random) {
         this.acters = acters;
@@ -51,7 +53,7 @@ public class Round {
         List<Acter> defenders = createListOfDefender(attacker);
 
         if (defenders.isEmpty()) {
-            printer.println(attacker.getName() + " had no one to attack.");
+            logger.info("{} had no one to attack.", attacker.getName());
             return;
         }
 
@@ -81,7 +83,7 @@ public class Round {
 
     private void killDefender(Acter defender) {
         removedActers.add(defender);
-        printer.println(defender.getName() + " has died.");
+        logger.info("{} has died.", defender.getName());
     }
 
     private void retreat() {

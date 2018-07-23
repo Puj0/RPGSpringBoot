@@ -1,11 +1,16 @@
 package com.Puj0.RPGSpringBoot.domain.acters.enemy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Troll")
 public class Troll extends Enemy implements ITroll {
+
+    private static final Logger logger = LoggerFactory.getLogger(Troll.class);
 
     public Troll(){}
 
@@ -17,12 +22,9 @@ public class Troll extends Enemy implements ITroll {
         super.setDefence(defence);
         super.setInitiative(initiative);
         super.setAggressive(Boolean.TRUE);
-        System.out.println(name + ", " + healthPoints + "hp, " + attack + "att, " + defence
-                + "def, " + initiative + "init.");
-    }
-
-    public String getClassName(){
-        return "Troll";
+        super.setMain(true);
+        logger.debug("{}, {} hp, {} att, {} def, {} init.", name,
+                healthPoints, attack, defence, initiative);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class Troll extends Enemy implements ITroll {
 
 
     @Override
-    public Boolean isMain() {
-        return Boolean.TRUE;
+    public boolean isMain() {
+        return true;
     }
 }

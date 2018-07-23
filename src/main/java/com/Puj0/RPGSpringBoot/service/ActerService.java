@@ -11,20 +11,20 @@ import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import com.Puj0.RPGSpringBoot.repository.ActerRepository;
 import com.github.javafaker.Faker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("acterService")
+@Service
 public class ActerService implements IActerService {
 
     private IRandom random = new ThreadRandom();
     private SortedActersList sortedActers = new SortedActersList();
     private Faker faker = new Faker();
 
-    @Autowired
-    private ActerRepository repository;
+    private ActerRepository acterRepository;
 
-
+    public ActerService(ActerRepository acterRepository) {
+        this.acterRepository = acterRepository;
+    }
 
     @Override
     public void createActers(int range) {
@@ -38,8 +38,7 @@ public class ActerService implements IActerService {
 
     @Override
     public Iterable<Acter> allActers() {
-        removeDeadActersFromDatabase();
-        return repository.findAll();
+        return acterRepository.findAll();
     }
 
     private void createHeroes(int numOfHeroes) {
@@ -74,17 +73,10 @@ public class ActerService implements IActerService {
         sortedActers.addActer(new ActerWithInitiative(acter, random));
     }
 
-    public void addActersToDatabase(SortedActersList acters){
+    private void addActersToDatabase(SortedActersList acters){
         for (ActerWithInitiative acter : acters.getArray()) {
-            repository.save(acter.getActer());
+            acterRepository.save(acter.getActer());
         }
     }
 
-    public void removeDeadActersFromDatabase(){
-        for(Acter acter : repository.findAll()){
-            if (acter.getHealthPoints() <= 0){
-                repository.delete(acter);
-            }
-        }
-    }
 }

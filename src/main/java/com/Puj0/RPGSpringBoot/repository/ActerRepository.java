@@ -1,15 +1,14 @@
 package com.Puj0.RPGSpringBoot.repository;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
-import com.Puj0.RPGSpringBoot.domain.acters.SortedActersList;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface ActerRepository extends CrudRepository<Acter, Long> {
+import java.util.List;
 
-//    void createActers(int numberOfHeroes, int range);
-//    SortedActersList getSortedActers();
-//    void addActersToDatabase(ActerWithInitiative[] acters);
+public interface ActerRepository extends JpaRepository<Acter, Long> {
 
-    Iterable<Acter> findAll();
+    @Query("select a from Acter a where a.healthPoints > 0")
+    List<Acter> findAll();
 
 }

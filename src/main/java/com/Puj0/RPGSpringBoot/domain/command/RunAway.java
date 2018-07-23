@@ -1,17 +1,19 @@
 package com.Puj0.RPGSpringBoot.domain.command;
 
-import com.Puj0.RPGSpringBoot.domain.Printer;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RunAway implements Command {
 
     private Acter acter;
-    private Printer printer = Printer.getInstance();
+    private final static Logger logger = LoggerFactory.getLogger(RunAway.class);
 
-    public RunAway(Acter acter) { this.acter = acter;}
+
+    RunAway(Acter acter) { this.acter = acter;}
 
     @Override
     public void execute() {
-        printer.println(acter.getName() + " has left the battle. Such a coward.");
+        logger.info("{} has left the battle. Such a coward.", acter.getName());
     }
 }

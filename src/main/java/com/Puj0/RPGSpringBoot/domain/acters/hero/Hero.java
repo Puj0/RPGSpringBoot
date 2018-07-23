@@ -1,6 +1,8 @@
 package com.Puj0.RPGSpringBoot.domain.acters.hero;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,7 +11,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Hero")
 public class Hero extends Acter implements IHero {
 
-    public RoleClass roleClass;
+    private RoleClass roleClass;
+    private static final Logger logger = LoggerFactory.getLogger(Hero.class);
 
     public Hero(){}
 
@@ -36,14 +39,10 @@ public class Hero extends Acter implements IHero {
         super.setAttack(attack);
         super.setDefence(defence);
         super.setInitiative(initiative);
+        super.setMain(true);
         setRoleClass(role);
-        System.out.println(name + ", " + role.toString() + ", " + healthPoints + "hp, "
-                + attack + "att, " + defence + "def, " + initiative + "init.");
-    }
-
-    @Override
-    public String getClassName(){
-        return "Hero";
+        logger.debug("{}, {}, {} hp, {} att, {} def, {} init.", name, role.toString(),
+                healthPoints, attack, defence, initiative);
     }
 
     @Override
@@ -68,12 +67,7 @@ public class Hero extends Acter implements IHero {
     }
 
     @Override
-    public void setMain(Boolean main) {
-        super.setMain(main);
-    }
-
-    @Override
-    public Boolean isMain() {
-        return Boolean.TRUE;
+    public boolean isMain() {
+        return true;
     }
 }

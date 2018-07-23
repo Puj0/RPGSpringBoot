@@ -1,14 +1,7 @@
 package com.Puj0.RPGSpringBoot.domain.acters;
 
-import com.Puj0.RPGSpringBoot.domain.Derandomizer;
 import com.Puj0.RPGSpringBoot.domain.IRandom;
 import com.Puj0.RPGSpringBoot.domain.ThreadRandom;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 
 public class ActerWithInitiative {
 
