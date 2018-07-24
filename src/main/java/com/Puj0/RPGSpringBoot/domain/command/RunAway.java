@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class RunAway implements Command {
 
     private Acter acter;
-    private final static Logger logger = LoggerFactory.getLogger(RunAway.class);
+    private static final Logger logger = LoggerFactory.getLogger(RunAway.class);
 
 
     RunAway(Acter acter) { this.acter = acter;}

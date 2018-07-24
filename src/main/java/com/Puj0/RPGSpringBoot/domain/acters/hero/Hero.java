@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Hero")
 public class Hero extends Acter implements IHero {
 
-    private RoleClass roleClass;
+    private RoleClass roleClassHero;
     private static final Logger logger = LoggerFactory.getLogger(Hero.class);
 
     public Hero(){}
@@ -40,19 +40,17 @@ public class Hero extends Acter implements IHero {
         super.setDefence(defence);
         super.setInitiative(initiative);
         super.setMain(true);
-        setRoleClass(role);
-        logger.debug("{}, {}, {} hp, {} att, {} def, {} init.", name, role.toString(),
+        this.setRoleClassHero(role);
+        logger.debug("{}, {}, {} hp, {} att, {} def, {} init.", name, role,
                 healthPoints, attack, defence, initiative);
     }
 
-    @Override
-    public RoleClass getRoleClass() {
-        return roleClass;
+    public RoleClass getRoleClassHero() {
+        return roleClassHero;
     }
 
-    @Override
-    public void setRoleClass(RoleClass role) {
-        this.roleClass = role;
+    public void setRoleClassHero(RoleClass role) {
+        this.roleClassHero = role;
     }
 
     @Override

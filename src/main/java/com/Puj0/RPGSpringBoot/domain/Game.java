@@ -54,6 +54,8 @@ public class Game {
 
     private static final Logger logger = LoggerFactory.getLogger(Game.class);
 
+    private Game(){}
+
     private Game(GameBuilder builder) {
         this.acters = builder.acters;
         totalRounds = builder.totalRounds;

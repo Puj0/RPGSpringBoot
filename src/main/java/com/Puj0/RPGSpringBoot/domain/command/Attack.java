@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class Attack implements Command{
 
-    private final static Logger logger = LoggerFactory.getLogger(Attack.class);
+    private static final Logger logger = LoggerFactory.getLogger(Attack.class);
 
     private Acter attacker;
     private Acter defender;

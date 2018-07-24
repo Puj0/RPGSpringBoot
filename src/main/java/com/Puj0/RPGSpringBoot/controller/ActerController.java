@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/acters")
 class ActerController {
 
-    private final static Logger logger = LoggerFactory.getLogger(ActerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActerController.class);
 
     @Autowired
     private IActerService acterService;
 
-    @RequestMapping(method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Acter> getActers() {
         return acterService.allActers();
     }
 
-    @RequestMapping(value = "/createActers/{range}")
-    public String createActers(@PathVariable("range") String range, Model model) {
+    @RequestMapping(value = "/addActers/{range}")
+    public String addActers(@PathVariable("range") String range, Model model) {
         logger.info("Range = {}", range);
         acterService.createActers(Integer.parseInt(range));
         model.addAttribute("acters", acterService.allActers());

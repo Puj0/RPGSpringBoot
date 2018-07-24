@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class SkipRound implements Command {
 
     private Acter acter;
-    private final static Logger logger = LoggerFactory.getLogger(SkipRound.class);
+    private static final Logger logger = LoggerFactory.getLogger(SkipRound.class);
 
     SkipRound(Acter acter) {
         this.acter = acter;

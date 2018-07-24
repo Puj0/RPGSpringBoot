@@ -6,7 +6,7 @@ interface IHero {
 
     void replenishHealth();
 
-    RoleClass getRoleClass();
+    RoleClass getRoleClassHero();
 
-    void setRoleClass(RoleClass role);
+    void setRoleClassHero(RoleClass role);
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/games")
 class GameController {
 
-    private final static Logger logger = LoggerFactory.getLogger(GameController.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
     @Autowired
     private IGameService gameService;
@@ -20,19 +20,17 @@ class GameController {
     @Autowired
     private IActerService acterService;
 
-    @RequestMapping(value = "/start/{rounds}",
-            method = RequestMethod.GET,
+    @GetMapping(value = "/start/{rounds}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String startGame(@PathVariable int rounds) {
-        logger.debug("Rounds = {}", rounds);
+        logger.info("Rounds = {}", rounds);
         return gameService.startGame(rounds);
     }
 
-    @RequestMapping(value = "/result/{id}",
-            method = RequestMethod.GET,
+    @GetMapping(value = "/result/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getGameResult(@PathVariable("id") String id) {
-        logger.debug("ID = {}", id);
+        logger.info("ID = {}", id);
         return gameService.getGameResult(Long.parseLong(id));
     }
 

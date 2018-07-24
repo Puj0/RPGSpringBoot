@@ -11,9 +11,13 @@ import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import com.Puj0.RPGSpringBoot.repository.ActerRepository;
 import com.github.javafaker.Faker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
+@Scope("prototype")
 public class ActerService implements IActerService {
 
     private IRandom random = new ThreadRandom();
@@ -23,6 +27,8 @@ public class ActerService implements IActerService {
     private ActerRepository acterRepository;
 
     public ActerService(ActerRepository acterRepository) {
+        Logger logger = LoggerFactory.getLogger(ActerService.class);
+        logger.info("Napravio sam acterService");
         this.acterRepository = acterRepository;
     }
 

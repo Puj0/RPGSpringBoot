@@ -4,11 +4,15 @@ import com.Puj0.RPGSpringBoot.domain.Game;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 import com.Puj0.RPGSpringBoot.repository.ActerRepository;
 import com.Puj0.RPGSpringBoot.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+//@Scope("prototype")
 public class GameService implements IGameService {
 
     private ActerRepository acterRepository;
@@ -16,6 +20,8 @@ public class GameService implements IGameService {
     private GameRepository gameRepository;
 
     public GameService(ActerRepository acterRepository, GameRepository gameRepository) {
+        Logger logger = LoggerFactory.getLogger(GameService.class);
+        logger.info("Napravio sam gameService");
         this.acterRepository = acterRepository;
         this.gameRepository = gameRepository;
     }
