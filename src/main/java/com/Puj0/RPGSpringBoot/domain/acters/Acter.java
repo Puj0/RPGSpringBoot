@@ -19,7 +19,7 @@ public abstract class Acter {
 
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private int healthPoints;
     @Column(nullable = false)
     private int attack;

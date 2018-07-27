@@ -1,37 +1,49 @@
 package com.Puj0.RPGSpringBoot.controller;
 
-import com.Puj0.RPGSpringBoot.service.IActerService;
 import com.Puj0.RPGSpringBoot.service.IGameService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 @RestController
 @RequestMapping("/games")
 class GameController {
 
-    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
-
-    @Autowired
     private IGameService gameService;
 
-    @Autowired
-    private IActerService acterService;
-
-    @GetMapping(value = "/start/{rounds}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String startGame(@PathVariable int rounds) {
-        logger.info("Rounds = {}", rounds);
-        return gameService.startGame(rounds);
+    public GameController(IGameService gameService) {
+        this.gameService = gameService;
     }
 
     @GetMapping(value = "/result/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getGameResult(@PathVariable("id") String id) {
-        logger.info("ID = {}", id);
+        log.info("ID = {}", id);
         return gameService.getGameResult(Long.parseLong(id));
+    }
+
+    @GetMapping(value = {"/start/{rounds}",
+            "/start/{rounds}/{list_of_acter_ids}"},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String startGameWithActers(@PathVariable("rounds") int rounds,
+                                      @Nullable @PathVariable("list_of_acter_ids") String acterIDs){
+        List<Long> idList = new ArrayList<>();
+        if (acterIDs != null) {
+            try {
+                String[] ids = acterIDs.split(",");
+                for (String id : ids) {
+                    idList.add(Long.parseLong(id.trim()));
+                }
+            } catch (Exception e) {
+                log.error("Unacceptable IDs error", e);
+            }
+        }
+        return gameService.startGame(rounds, idList);
     }
 
 }

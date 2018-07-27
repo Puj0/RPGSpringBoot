@@ -9,8 +9,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 import lombok.Getter;
 import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.MissingFormatArgumentException;
 
+@Slf4j
 @Getter
 @Setter
 @Entity
@@ -52,8 +52,6 @@ public class Game {
     @Transient
     private IRandom random = new ThreadRandom();
 
-    private static final Logger logger = LoggerFactory.getLogger(Game.class);
-
     private Game(){}
 
     private Game(GameBuilder builder) {
@@ -74,7 +72,7 @@ public class Game {
 
     private void logCharacterInitiatives() {
         for (ActerWithInitiative acterWithInitiative : acters.getArray()) {
-            logger.info("{} has initiative: {}.", acterWithInitiative.getActer().getName(), acterWithInitiative.getInitiative());
+            log.info("{} has initiative: {}.", acterWithInitiative.getActer().getName(), acterWithInitiative.getInitiative());
         }
     }
 
@@ -91,12 +89,11 @@ public class Game {
             if (currentRound == 0) {
                 currentRound++;
             }
-            logger.info("It took {} rounds.", currentRound - 1);
-            outcome = outcome + "\nIt took " + (currentRound - 1) + " rounds.";
+            log.info("It took {} rounds.", currentRound - 1);
+            outcome += "\nIt took " + (currentRound - 1) + " rounds.";
             saveResult(outcome);
         } else {
-
-            logger.info(TIMES_UP);
+            log.info(TIMES_UP);
             saveResult(TIMES_UP);
         }
     }
@@ -123,7 +120,7 @@ public class Game {
     }
 
     private void logStateAtTheEndOfTheRound() {
-        logger.info("End of round {}. \nHeroes - Trolls - Animals \n{}\t\t{}\t\t{}",
+        log.info("End of round {}. \nHeroes - Trolls - Animals \n{}\t\t{}\t\t{}",
                 currentRound + 1, getRaceSize(Hero.class), getRaceSize(Troll.class), getRaceSize(Animal.class));
     }
 
@@ -136,12 +133,12 @@ public class Game {
 
     private String outcome() {
         if (getRaceSize(Hero.class) == 0) {
-            logger.info(HEROES_LOST);
+            log.info(HEROES_LOST);
             saveResult(HEROES_LOST);
             return HEROES_LOST;
         }
 
-        logger.info(HEROES_WON);
+        log.info(HEROES_WON);
         saveResult(HEROES_WON);
         return HEROES_WON;
     }
@@ -180,7 +177,7 @@ public class Game {
                 try {
                     throw new MissingFormatArgumentException("Acters, and/or dispatcher is null");
                 } catch (Exception e) {
-                    logger.error("Acters, and/or dispatcher is null",e);
+                    log.error("Acters, and/or dispatcher is null",e);
                 }
             }
             return new Game(this);

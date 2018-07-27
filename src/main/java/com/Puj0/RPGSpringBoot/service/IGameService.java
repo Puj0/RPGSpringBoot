@@ -1,13 +1,10 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import com.Puj0.RPGSpringBoot.domain.Game;
+import java.util.List;
 
 public interface IGameService {
 
-    Game createGame(int rounds);
-
-    String startGame(int rounds);
-
     String getGameResult(Long id);
 
+    String startGame(int rounds, List<Long> idList);
 }

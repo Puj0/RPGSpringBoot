@@ -22,6 +22,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<h2.version>1.4.197</h2.version>
+        <hibernate.version>5.2.3.Final</hibernate.version>
+		<javafaker.version>0.15</javafaker.version>
+		<lombok.version>1.18.0</lombok.version>
+		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -44,18 +49,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.197</version>
+			<version>${h2.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.2.3.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 
 		<dependency>
@@ -73,20 +79,26 @@
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
-			<version>0.15</version>
+			<version>${javafaker.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.0</version>
+			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

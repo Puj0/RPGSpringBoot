@@ -3,9 +3,11 @@ package com.Puj0.RPGSpringBoot.service;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 
+import java.util.List;
+
 public interface IActerService {
 
-    void createActers(int range);
+    List<Acter> createActers(int range);
 
-    Iterable<Acter> allActers();
+    List<Acter> allActers();
 }
