@@ -61,7 +61,7 @@ class ActerControllerTest {
         acters.add(new Animal(NAME, HEALTH_POINTS, ATTACK, DEFENCE, INITIATIVE));
         acters.add(new Animal(NAME2, HEALTH_POINTS, ATTACK, DEFENCE, INITIATIVE));
 
-        when(acterService.allActers()).thenReturn(acters);
+        when(acterService.getAllActers()).thenReturn(acters);
 
         assertEquals(2, acterController.getActers().size());
     }
@@ -73,7 +73,7 @@ class ActerControllerTest {
         acters.add(new Animal(NAME, HEALTH_POINTS, ATTACK, DEFENCE, INITIATIVE));
 
         assertNotNull(this.acterService);
-        when(acterService.allActers()).thenReturn(acters);
+        when(acterService.getAllActers()).thenReturn(acters);
 
         MvcResult result = mockMvc.perform(post("/acter/addActers/{range}", "1"))
                 .andExpect(status().isOk())
@@ -92,7 +92,7 @@ class ActerControllerTest {
         String responseAsString=mockResponse.getContentAsString();
         assertTrue(responseAsString.contains("Spring Framework Guru"));
 
-        verify(acterService, times(1)).allActers();
+        verify(acterService, times(1)).getAllActers();
         verifyNoMoreInteractions(acterService);
     }
 }

@@ -2,12 +2,10 @@ package com.Puj0.RPGSpringBoot.domain.command;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Enemy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Attack implements Command{
-
-    private static final Logger logger = LoggerFactory.getLogger(Attack.class);
 
     private Acter attacker;
     private Acter defender;
@@ -32,6 +30,6 @@ public class Attack implements Command{
     private void doDamage() {
         int damage = Math.max(0, attacker.getAttack() - defender.getDefence());
         defender.defend(damage);
-        logger.info("{} attacked {}.", attacker.getName(), defender.getName());
+        log.info("{} attacked {}.", attacker.getName(), defender.getName());
     }
 }

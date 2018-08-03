@@ -15,5 +15,4 @@ public class ThreadRandom implements IRandom {
     public Integer nextInt(int origin, int bound) {
         return threadLocalRandom.nextInt(origin,bound);
     }
-
 }

@@ -4,6 +4,7 @@ import com.Puj0.RPGSpringBoot.domain.Derandomizer;
 import com.Puj0.RPGSpringBoot.domain.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Animal;
+import com.Puj0.RPGSpringBoot.mapper.ActerMapper;
 import com.Puj0.RPGSpringBoot.repository.ActerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,11 +33,14 @@ class ActerServiceTest {
     @Mock
     private IRandom random;
 
+    @Mock
+    private ActerMapper acterMapper;
+
     @BeforeEach
     void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
 
-        acterService = new ActerService(acterRepository, random);
+        acterService = new ActerService(acterRepository, random, acterMapper);
     }
 
     @Test
@@ -48,7 +52,7 @@ class ActerServiceTest {
 
         verify(random, times(2)).nextInt(1,3);
 
-        assertEquals(2, acterService.allActers().size());
+        assertEquals(2, acterService.getAllActers().size());
 
     }
 
@@ -59,8 +63,8 @@ class ActerServiceTest {
         ArrayList<Acter> acterData = new ArrayList<>();
         acterData.add(acter);
 
-        when(acterService.allActers()).thenReturn(acterData);
-        List<Acter> acters = acterService.allActers();
+        when(acterService.getAllActers()).thenReturn(acterData);
+        List<Acter> acters = acterService.getAllActers();
 
         assertEquals(acters.size(), 1);
         verify(acterRepository, times(1)).findAll();

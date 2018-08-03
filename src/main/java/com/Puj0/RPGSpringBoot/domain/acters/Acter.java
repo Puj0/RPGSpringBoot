@@ -2,6 +2,7 @@ package com.Puj0.RPGSpringBoot.domain.acters;
 
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorColumn(name = "className")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NoArgsConstructor
 public abstract class Acter {
 
     @Id
@@ -18,23 +20,27 @@ public abstract class Acter {
     Long id;
 
     @Column(nullable = false)
-    private String name;
-    @Column(nullable = false, updatable = false)
-    private int healthPoints;
-    @Column(nullable = false)
     private int attack;
+
     @Column(nullable = false)
     private int defence;
+
+    @Column(nullable = false, updatable = false)
+    private int healthPoints;
+
     @Column(nullable = false)
     private int initiative;
-//    @Column
+
     private boolean main;
 
-    @Transient
-    private String className;
+    @Column(nullable = false)
+    private String name;
 
     @Transient
     public RoleClass roleClass;
+
+    @Transient
+    private ActerClass className;
 
     public void defend(int damage){
         if (damage > 0) {
@@ -42,8 +48,7 @@ public abstract class Acter {
         }
     }
 
-    public String getClassName(){
-        return this.getClass().toString();
+    public ActerClass getClassName(){
+        return ActerClass.valueOf(this.getClass().getSimpleName().toUpperCase());
     }
-
 }

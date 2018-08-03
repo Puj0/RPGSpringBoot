@@ -1,5 +1,6 @@
 package com.Puj0.RPGSpringBoot.domain.acters.enemy;
 
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,12 +8,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "Troll")
+@NoArgsConstructor
 public class Troll extends Enemy implements ITroll {
 
     private static final Logger logger = LoggerFactory.getLogger(Troll.class);
-
-    public Troll(){}
 
     public Troll(String name, int healthPoints, int attack, int defence, int initiative) {
         super();
@@ -40,7 +39,6 @@ public class Troll extends Enemy implements ITroll {
     public void replenishHealth() {
         setHealthPoints(getHealthPoints() + 2);
     }
-
 
     @Override
     public boolean isMain() {

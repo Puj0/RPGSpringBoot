@@ -8,6 +8,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.enemy.Troll;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,7 @@ import java.util.MissingFormatArgumentException;
 @Slf4j
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Game {
 
@@ -51,8 +53,6 @@ public class Game {
 
     @Transient
     private IRandom random = new ThreadRandom();
-
-    private Game(){}
 
     private Game(GameBuilder builder) {
         this.acters = builder.acters;
@@ -105,9 +105,9 @@ public class Game {
     private boolean gameDone() {
         return Arrays.stream(acters.getArray())
                 .filter(acterWithInitiative ->
-                        acterWithInitiative.
-                                getActer().
-                                isMain())
+                        acterWithInitiative
+                                .getActer()
+                                .isMain())
                 .map(a -> a.getActer().getClass())
                 .distinct()
                 .count() < 2;
@@ -162,8 +162,9 @@ public class Game {
         }
 
         public GameBuilder addActers(Iterable<Acter> sortedActers) {
-            for (Acter acter : sortedActers)
+            for (Acter acter : sortedActers) {
                 acters.addActer(new ActerWithInitiative(acter, random));
+            }
             return this;
         }
 
@@ -177,7 +178,7 @@ public class Game {
                 try {
                     throw new MissingFormatArgumentException("Acters, and/or dispatcher is null");
                 } catch (Exception e) {
-                    log.error("Acters, and/or dispatcher is null",e);
+                    log.error("Acters, and/or dispatcher is null", e);
                 }
             }
             return new Game(this);

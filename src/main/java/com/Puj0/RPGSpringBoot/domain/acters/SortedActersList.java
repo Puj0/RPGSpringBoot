@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 public class SortedActersList {
 
-
     private int size = 0;
 
     private ActerWithInitiative[] array;
@@ -22,9 +21,11 @@ public class SortedActersList {
 
     public List<Acter> getActerList(){
         List<Acter> acters = new ArrayList<>();
+
         for (ActerWithInitiative acter : getArray()){
             acters.add(acter.getActer());
         }
+
         return acters;
     }
 
@@ -91,5 +92,4 @@ public class SortedActersList {
     public Stream<ActerWithInitiative> stream(){
         return Arrays.stream(getArray());
     }
-
 }

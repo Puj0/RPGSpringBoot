@@ -19,5 +19,4 @@ public abstract class Enemy extends Acter implements IEnemy {
             setAggressive(Boolean.TRUE);
         }
     }
-
 }

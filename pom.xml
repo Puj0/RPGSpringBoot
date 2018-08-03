@@ -27,6 +27,7 @@
 		<javafaker.version>0.15</javafaker.version>
 		<lombok.version>1.18.0</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
+		<mapstruct.version>1.2.0.Final</mapstruct.version>
 	</properties>
 
 	<dependencies>
@@ -70,12 +71,6 @@
 			<scope>test</scope>
 		</dependency>
 
-        <dependency>
-            <groupId>com.Puj0</groupId>
-            <artifactId>RPGSpringBoot</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
@@ -101,7 +96,20 @@
             <scope>test</scope>
         </dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+
+	</dependencies>
 
 	<build>
 		<plugins>

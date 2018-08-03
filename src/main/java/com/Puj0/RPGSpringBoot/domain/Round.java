@@ -7,13 +7,13 @@ import com.Puj0.RPGSpringBoot.domain.command.Command;
 import com.Puj0.RPGSpringBoot.domain.command.CommandAbstractFactory;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
 import com.Puj0.RPGSpringBoot.domain.command.CommandFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 class Round {
 
     private SortedActersList acters;
@@ -21,7 +21,6 @@ class Round {
     private CommandDispatcher dispatcher;
     private CommandAbstractFactory commandFactory = new CommandFactory();
     private IRandom random;
-    private static final Logger logger = LoggerFactory.getLogger(Round.class);
 
     Round(SortedActersList acters, ArrayList<Acter> removedActers, CommandDispatcher dispatcher, IRandom random) {
         this.acters = acters;
@@ -53,7 +52,7 @@ class Round {
         List<Acter> defenders = createListOfDefender(attacker);
 
         if (defenders.isEmpty()) {
-            logger.info("{} had no one to attack.", attacker.getName());
+            log.info("{} had no one to attack.", attacker.getName());
             return;
         }
 
@@ -67,7 +66,7 @@ class Round {
     private List<Acter> createListOfDefender(Acter attacker) {
         return acters.stream()
                 .map(ActerWithInitiative::getActer)
-                .filter(a -> !(a.getClass() == attacker.getClass()) && !(removedActers.contains(a)))
+                .filter(a -> (a.getClass() != attacker.getClass()) && !(removedActers.contains(a)))
                 .collect(Collectors.toList());
     }
 
@@ -83,7 +82,7 @@ class Round {
 
     private void killDefender(Acter defender) {
         removedActers.add(defender);
-        logger.info("{} has died.", defender.getName());
+        log.info("{} has died.", defender.getName());
     }
 
     private void retreat() {

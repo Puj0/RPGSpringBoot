@@ -1,10 +1,11 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import java.util.List;
+import com.Puj0.RPGSpringBoot.view.GameParameters;
+import com.Puj0.RPGSpringBoot.view.GameView;
 
 public interface IGameService {
 
-    String getGameResult(Long id);
+    GameView getGame(Long id) throws Exception;
 
-    String startGame(int rounds, List<Long> idList);
+    void startGame(GameParameters gameParameters);
 }
