@@ -63,7 +63,7 @@ class ActerControllerTest {
 
         when(acterService.getAllActers()).thenReturn(acters);
 
-        assertEquals(2, acterController.getActers().size());
+        assertEquals(2, acterController.getActers().getBody().size());
     }
 
     @Test
@@ -75,7 +75,7 @@ class ActerControllerTest {
         assertNotNull(this.acterService);
         when(acterService.getAllActers()).thenReturn(acters);
 
-        MvcResult result = mockMvc.perform(post("/acter/addActers/{range}", "1"))
+        MvcResult result = mockMvc.perform(post("/acter/addActers/{minNumOfHeroes}", "1"))
                 .andExpect(status().isOk())
 //                .andExpect(redirectedUrl("/acter"))
                 .andExpect(model().attributeExists("acter"))

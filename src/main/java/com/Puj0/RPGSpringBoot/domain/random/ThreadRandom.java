@@ -1,4 +1,4 @@
-package com.Puj0.RPGSpringBoot.domain;
+package com.Puj0.RPGSpringBoot.domain.random;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

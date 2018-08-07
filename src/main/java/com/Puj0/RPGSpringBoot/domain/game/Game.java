@@ -1,5 +1,7 @@
-package com.Puj0.RPGSpringBoot.domain;
+package com.Puj0.RPGSpringBoot.domain.game;
 
+import com.Puj0.RPGSpringBoot.domain.random.IRandom;
+import com.Puj0.RPGSpringBoot.domain.random.ThreadRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.ActerWithInitiative;
 import com.Puj0.RPGSpringBoot.domain.acters.SortedActersList;

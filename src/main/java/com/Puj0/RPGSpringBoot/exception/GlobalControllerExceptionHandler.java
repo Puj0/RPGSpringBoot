@@ -15,14 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorView> handleResourceNotFoundException(HttpServletRequest request, ResourceNotFoundException exception) {
+    public ResponseEntity<ErrorView> handleResourceNotFoundException(
+            HttpServletRequest request, ResourceNotFoundException exception) {
+
         log.error(request.getRequestURL() + " threw " + exception.getMessage());
         return new ResponseEntity<>(
                 new ErrorView(exception.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorView> handleMethodArgumentNotValidException(HttpServletRequest request, MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorView> handleMethodArgumentNotValidException(
+            HttpServletRequest request, MethodArgumentNotValidException exception) {
+
         log.error(request.getRequestURL() + " threw " + exception.getMessage());
         return new ResponseEntity<>(
                 new ErrorView(exception.getMessage(), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);

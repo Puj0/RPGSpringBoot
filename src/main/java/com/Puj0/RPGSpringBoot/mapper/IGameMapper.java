@@ -1,13 +1,13 @@
 package com.Puj0.RPGSpringBoot.mapper;
 
-import com.Puj0.RPGSpringBoot.domain.Game;
+import com.Puj0.RPGSpringBoot.domain.game.Game;
 import com.Puj0.RPGSpringBoot.view.GameView;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface GameMapper {
+public interface IGameMapper {
 
-    GameView mapGameView(Game game);
+    GameView map(Game game);
 
-    Game mapGame(GameView gameView);
+    Game map(GameView gameView);
 }

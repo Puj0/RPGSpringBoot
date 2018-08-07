@@ -1,23 +1,21 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import com.Puj0.RPGSpringBoot.domain.IRandom;
-import com.Puj0.RPGSpringBoot.domain.acters.Acter;
-import com.Puj0.RPGSpringBoot.domain.acters.ActerClass;
-import com.Puj0.RPGSpringBoot.domain.acters.ActerWithInitiative;
-import com.Puj0.RPGSpringBoot.domain.acters.SortedActersList;
+import com.Puj0.RPGSpringBoot.domain.INameGenerator;
+import com.Puj0.RPGSpringBoot.domain.acters.*;
+import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
+import com.Puj0.RPGSpringBoot.domain.random.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Animal;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Enemy;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Troll;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.Hero;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
-import com.Puj0.RPGSpringBoot.mapper.ActerMapper;
-import com.Puj0.RPGSpringBoot.repository.ActerRepository;
-import com.Puj0.RPGSpringBoot.view.ActerParameters;
+import com.Puj0.RPGSpringBoot.mapper.IActerMapper;
+import com.Puj0.RPGSpringBoot.repository.IActerRepository;
+import com.Puj0.RPGSpringBoot.view.ActerRequest;
 import com.Puj0.RPGSpringBoot.view.ActerView;
-import com.github.javafaker.Faker;
+
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,25 +25,51 @@ import java.util.List;
 @Service
 public class ActerService implements IActerService {
 
-    private static IRandom random;
-    private static final Faker faker = new Faker();
+    private static final int DOUBLE_RANGE = 2;
+    private static final int HERO_ATTACK_MIN = 10;
+    private static final int HERO_ATTACK_MAX = 26;
+    private static final int HERO_DEFENCE_MIN = 3;
+    private static final int HERO_DEFENCE_MAX = 11;
+    private static final int HERO_HEALTH_MIN = 2;
+    private static final int HERO_HEALTH_MAX = 7;
+    private static final int HERO_INITIATIVE_MIN = 1;
+    private static final int HERO_INITIATIVE_MAX = 10;
+    private static final int TROLL_HEALTH_MIN = 10;
+    private static final int TROLL_HEALTH_MAX = 26;
+    private static final int TROLL_ATTACK_MIN = 3;
+    private static final int TROLL_ATTACK_MAX = 11;
+    private static final int TROLL_DEFENCE_MIN = 2;
+    private static final int TROLL_DEFENCE_MAX = 7;
+    private static final int TROLL_INITIATIVE_MIN = 1;
+    private static final int TROLL_INITIATIVE_MAX = 10;
+    private static final int ANIMAL_HEALTH_MIN = 5;
+    private static final int ANIMAL_HEALTH_MAX = 16;
+    private static final int ANIMAL_ATTACK_MIN = 0;
+    private static final int ANIMAL_ATTACK_MAX = 6;
+    private static final int ANIMAL_DEFENCE_MIN = 2;
+    private static final int ANIMAL_DEFENCE_MAX = 5;
+    private static final int ANIMAL_INITIATIVE_MIN = 1;
+    private static final int ANIMAL_INITIATIVE_MAX = 5;
 
-    private final ActerRepository acterRepository;
+    private IRandom random;
+    private INameGenerator nameGenerator;
 
-    private final ActerMapper acterMapper;
+    private final IActerRepository acterRepository;
 
-    ActerService(ActerRepository acterRepository, IRandom random, ActerMapper acterMapper) {
-        log.info("New acterService bean");
+    private final IActerMapper acterMapper;
+
+    ActerService(IActerRepository acterRepository, IRandom random, IActerMapper acterMapper, INameGenerator nameGenerator) {
         this.acterRepository = acterRepository;
         this.acterMapper = acterMapper;
-        ActerService.random = random;
+        this.random = random;
+        this.nameGenerator = nameGenerator;
     }
 
     @Override
-    public List<Acter> createActers(int range) {
+    public List<Acter> createActers(MinimumHeroes acterRange) {
         SortedActersList sortedActers = new SortedActersList();
-        int numOfHeroes = random.nextInt(range, range * 2 + 1);
-        int numOfEnemies = random.nextInt(numOfHeroes, numOfHeroes * 2 + 1);
+        int numOfHeroes = random.nextInt(acterRange.getMinNumOfHeroes(), acterRange.getMinNumOfHeroes() * DOUBLE_RANGE + 1);
+        int numOfEnemies = random.nextInt(numOfHeroes, numOfHeroes * DOUBLE_RANGE + 1);
 
         for(Acter acter : createHeroes(numOfHeroes)){
             sortedActers.addActer(new ActerWithInitiative(acter, random));
@@ -65,36 +89,29 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public ResponseEntity<ActerView> createActer(ActerParameters acterParameters) {
-
-        ActerClass clazz = acterParameters.getClassName();
-        Acter acter;
-        switch (clazz){
-            case HERO:
-                acter = new Hero(acterParameters.getAttack(), acterParameters.getDefence(), acterParameters.getHealthPoints(), acterParameters.getInitiative(),
-                         acterParameters.getName(), RoleClass.BARBARIAN);
-                break;
-            case TROLL:
-                acter = new Troll(acterParameters.getName(), acterParameters.getAttack(),
-                        acterParameters.getDefence(), acterParameters.getHealthPoints(), acterParameters.getInitiative());
-                break;
-            case ANIMAL:
-                acter = new Animal(acterParameters.getName(), acterParameters.getAttack(),
-                        acterParameters.getDefence(), acterParameters.getHealthPoints(), acterParameters.getInitiative());
-                break;
-            default:
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ActerView createActer(ActerRequest acterRequest) {
+        ActerFactory acterFactory = new ActerFactory();
+        Acter acter = acterFactory.createActer(acterRequest);
         acterRepository.save(acter);
-        return new ResponseEntity<>(acterMapper.mapActerView(acter), HttpStatus.OK);
+        return acterMapper.map(acter);
+    }
+
+    @Override
+    public List<ActerView> findAll(Specification<Acter> specification) {
+        List<Acter> games = acterRepository.findAll(specification);
+        List<ActerView> gameViewList = new ArrayList<>();
+        for(Acter game : games){
+            gameViewList.add(acterMapper.map(game));
+        }
+        return gameViewList;
     }
 
     private List<Hero> createHeroes(int numOfHeroes) {
         List<Hero> heroes = new ArrayList<>();
         for (int i = 0; i < numOfHeroes; i++) {
-            Hero newHero = new Hero(random.nextInt(10, 26), random.nextInt(3, 11),
-                    random.nextInt(2, 7), random.nextInt(1, 10),
-                    faker.lordOfTheRings().character(), RoleClass.values()[i % RoleClass.values().length]);
+            Hero newHero = new Hero(random.nextInt(HERO_ATTACK_MIN, HERO_ATTACK_MAX), random.nextInt(HERO_DEFENCE_MIN, HERO_DEFENCE_MAX),
+                    random.nextInt(HERO_HEALTH_MIN, HERO_HEALTH_MAX), random.nextInt(HERO_INITIATIVE_MIN, HERO_INITIATIVE_MAX),
+                    nameGenerator.getHeroName(), RoleClass.values()[i % RoleClass.values().length]);
             heroes.add(newHero);
         }
         return heroes;
@@ -107,14 +124,14 @@ public class ActerService implements IActerService {
             boolean isTroll = (trollDoesNotExist) || ((random.nextInt(1, 11) % 2) == 1);
             if (isTroll) {
                 trollDoesNotExist = false;
-                Troll newTroll = new Troll(faker.rickAndMorty().character(), random.nextInt(10, 26),
-                        random.nextInt(3, 11), random.nextInt(2, 7),
-                        random.nextInt(1, 10));
+                Troll newTroll = new Troll(nameGenerator.getTrollName(), random.nextInt(TROLL_HEALTH_MIN, TROLL_HEALTH_MAX),
+                        random.nextInt(TROLL_ATTACK_MIN, TROLL_ATTACK_MAX), random.nextInt(TROLL_DEFENCE_MIN, TROLL_DEFENCE_MAX),
+                        random.nextInt(TROLL_INITIATIVE_MIN, TROLL_INITIATIVE_MAX));
                 enemies.add(newTroll);
             } else {
-                Animal newAnimal = new Animal(faker.pokemon().name(), random.nextInt(5, 16),
-                        random.nextInt(0, 6), random.nextInt(2, 5),
-                        random.nextInt(1, 5));
+                Animal newAnimal = new Animal(nameGenerator.getAnimalName(), random.nextInt(ANIMAL_HEALTH_MIN, ANIMAL_HEALTH_MAX),
+                        random.nextInt(ANIMAL_ATTACK_MIN, ANIMAL_ATTACK_MAX), random.nextInt(ANIMAL_DEFENCE_MIN, ANIMAL_DEFENCE_MAX),
+                        random.nextInt(ANIMAL_INITIATIVE_MIN, ANIMAL_INITIATIVE_MAX));
                 enemies.add(newAnimal);
             }
         }
@@ -126,5 +143,4 @@ public class ActerService implements IActerService {
             acterRepository.save(acter.getActer());
         }
     }
-
 }

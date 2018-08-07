@@ -1,4 +1,4 @@
-package com.Puj0.RPGSpringBoot.domain;
+package com.Puj0.RPGSpringBoot.domain.random;
 
 public interface IRandom {
 

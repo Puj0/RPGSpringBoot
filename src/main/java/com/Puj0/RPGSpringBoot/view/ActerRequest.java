@@ -10,24 +10,30 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class ActerParameters {
+public class ActerRequest {
 
-    @NotNull
     @NotBlank
     private String name;
+
     @NotNull
     @Min(1)
     private int healthPoints;
+
     @NotNull
     @Min(1)
     private int attack;
+
     @NotNull
     private int defence;
+
     @NotNull
     @Min(1)
     private int initiative;
+
     @NotNull
     private ActerClass className;
+
+    private int roleClass;
 
     public void setName(String name){
         this.name = name.trim();

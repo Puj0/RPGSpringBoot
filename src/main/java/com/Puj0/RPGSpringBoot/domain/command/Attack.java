@@ -5,7 +5,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.enemy.Enemy;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Attack implements Command{
+public class Attack implements ICommand {
 
     private Acter attacker;
     private Acter defender;

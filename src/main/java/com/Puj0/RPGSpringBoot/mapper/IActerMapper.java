@@ -5,7 +5,7 @@ import com.Puj0.RPGSpringBoot.view.ActerView;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ActerMapper {
+public interface IActerMapper {
 
-    ActerView mapActerView(Acter acter);
+    ActerView map(Acter acter);
 }

@@ -1,18 +1,16 @@
-package com.Puj0.RPGSpringBoot.view;
+package com.Puj0.RPGSpringBoot.domain.game;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
-public class GameParameters {
+public class MinimumHeroes {
 
     @NotNull
-    @Min(0)
-    private Integer rounds;
-    private List<Long> IDs;
+    @Min(1)
+    private int minNumOfHeroes;
 }

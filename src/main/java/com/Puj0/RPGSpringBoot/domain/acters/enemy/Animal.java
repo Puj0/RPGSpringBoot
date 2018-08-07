@@ -26,7 +26,7 @@ public class Animal extends Enemy implements IAnimal {
     @Override
     public void defend(int damage) {
         if (damage < 0) {
-            throw new IllegalArgumentException("Damage cannot be negative");
+            throw new IllegalArgumentException("Damage can not be negative");
         }
 
         if (damage > 0) {

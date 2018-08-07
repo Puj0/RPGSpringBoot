@@ -1,11 +1,17 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import com.Puj0.RPGSpringBoot.view.GameParameters;
+import com.Puj0.RPGSpringBoot.domain.game.Game;
+import com.Puj0.RPGSpringBoot.view.GameRequest;
 import com.Puj0.RPGSpringBoot.view.GameView;
+import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
 
 public interface IGameService {
 
     GameView getGame(Long id) throws Exception;
 
-    void startGame(GameParameters gameParameters);
+    void startGame(GameRequest gameRequest);
+
+    List<GameView> findAll(Specification<Game> specification);
 }

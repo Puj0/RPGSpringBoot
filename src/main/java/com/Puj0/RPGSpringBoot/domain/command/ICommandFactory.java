@@ -2,7 +2,7 @@ package com.Puj0.RPGSpringBoot.domain.command;
 
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 
-public class CommandFactory implements CommandAbstractFactory {
+public class ICommandFactory implements ICommandAbstractFactory {
 
     @Override
     public Attack createAttack(Acter attacker, Acter defender) {

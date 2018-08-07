@@ -4,6 +4,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
@@ -50,5 +51,9 @@ public abstract class Acter {
 
     public ActerClass getClassName(){
         return ActerClass.valueOf(this.getClass().getSimpleName().toUpperCase());
+    }
+
+    public RoleClass getRoleClass(){
+        return roleClass;
     }
 }

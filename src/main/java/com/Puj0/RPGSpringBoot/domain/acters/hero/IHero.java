@@ -1,8 +1,6 @@
 package com.Puj0.RPGSpringBoot.domain.acters.hero;
 
-interface IHero {
-
-    void takeDamage(int damage);
+public interface IHero {
 
     void replenishHealth();
 

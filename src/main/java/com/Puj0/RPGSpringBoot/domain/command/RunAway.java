@@ -4,7 +4,7 @@ import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class RunAway implements Command {
+public class RunAway implements ICommand {
 
     private Acter acter;
 

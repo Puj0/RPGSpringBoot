@@ -1,12 +1,13 @@
-package com.Puj0.RPGSpringBoot.domain;
+package com.Puj0.RPGSpringBoot.domain.game;
 
+import com.Puj0.RPGSpringBoot.domain.random.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.ActerWithInitiative;
 import com.Puj0.RPGSpringBoot.domain.acters.SortedActersList;
-import com.Puj0.RPGSpringBoot.domain.command.Command;
-import com.Puj0.RPGSpringBoot.domain.command.CommandAbstractFactory;
+import com.Puj0.RPGSpringBoot.domain.command.ICommand;
+import com.Puj0.RPGSpringBoot.domain.command.ICommandAbstractFactory;
 import com.Puj0.RPGSpringBoot.domain.command.CommandDispatcher;
-import com.Puj0.RPGSpringBoot.domain.command.CommandFactory;
+import com.Puj0.RPGSpringBoot.domain.command.ICommandFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ class Round {
     private SortedActersList acters;
     private ArrayList<Acter> removedActers;
     private CommandDispatcher dispatcher;
-    private CommandAbstractFactory commandFactory = new CommandFactory();
+    private ICommandAbstractFactory commandFactory = new ICommandFactory();
     private IRandom random;
 
     Round(SortedActersList acters, ArrayList<Acter> removedActers, CommandDispatcher dispatcher, IRandom random) {
@@ -44,7 +45,7 @@ class Round {
 
     private void fight(Acter attacker) {
         if (!isActerAttacking()){
-            Command skipRound = commandFactory.createSkipRound(attacker);
+            ICommand skipRound = commandFactory.createSkipRound(attacker);
             dispatcher.setCommand(skipRound);
             return;
         }
@@ -72,7 +73,7 @@ class Round {
 
     private void attack(Acter attacker, List<Acter> defenders) {
         Acter defender = defenders.get(random.nextInt(0, defenders.size()));
-        Command attack = commandFactory.createAttack(attacker, defender);
+        ICommand attack = commandFactory.createAttack(attacker, defender);
         dispatcher.setCommand(attack);
 
         if (defender.getHealthPoints() <= 0) {
@@ -90,7 +91,7 @@ class Round {
                 .map(ActerWithInitiative::getActer)
                 .filter(acter -> acter.getHealthPoints() < 2 && !removedActers.contains(acter))
                 .forEach(acter -> {
-                    Command runAway = commandFactory.createRunAway(acter);
+                    ICommand runAway = commandFactory.createRunAway(acter);
                     dispatcher.setCommand(runAway);
                     removedActers.add(acter);
                 });

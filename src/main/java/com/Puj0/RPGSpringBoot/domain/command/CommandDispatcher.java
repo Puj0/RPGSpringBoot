@@ -2,9 +2,9 @@ package com.Puj0.RPGSpringBoot.domain.command;
 
 public class CommandDispatcher {
 
-    private Command command;
+    private ICommand command;
 
-    public void setCommand(Command command) {
+    public void setCommand(ICommand command) {
         this.command = command;
         execute();
     }

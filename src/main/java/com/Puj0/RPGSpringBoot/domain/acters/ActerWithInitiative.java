@@ -1,7 +1,7 @@
 package com.Puj0.RPGSpringBoot.domain.acters;
 
-import com.Puj0.RPGSpringBoot.domain.IRandom;
-import com.Puj0.RPGSpringBoot.domain.ThreadRandom;
+import com.Puj0.RPGSpringBoot.domain.random.IRandom;
+import com.Puj0.RPGSpringBoot.domain.random.ThreadRandom;
 
 public class ActerWithInitiative {
 

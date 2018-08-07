@@ -21,6 +21,7 @@ public class Hero extends Acter implements IHero {
         super.setDefence(defence);
         super.setInitiative(initiative);
         super.setMain(true);
+        super.setRoleClass(role);
         this.setRoleClassHero(role);
         log.debug("{}, {}, {} hp, {} att, {} def, {} init.", name, role,
                 healthPoints, attack, defence, initiative);
@@ -32,13 +33,6 @@ public class Hero extends Acter implements IHero {
 
     public void setRoleClassHero(RoleClass role) {
         this.roleClassHero = role;
-    }
-
-    @Override
-    public void takeDamage(int damage) {
-        if (damage > 0) {
-            setHealthPoints(getHealthPoints() - damage);
-        }
     }
 
     @Override

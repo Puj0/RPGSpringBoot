@@ -1,5 +1,5 @@
 package com.Puj0.RPGSpringBoot.domain.command;
 
-public interface Command {
+public interface ICommand {
     void execute();
 }

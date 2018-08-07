@@ -1,11 +1,12 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import com.Puj0.RPGSpringBoot.domain.Derandomizer;
-import com.Puj0.RPGSpringBoot.domain.IRandom;
+import com.Puj0.RPGSpringBoot.domain.INameGenerator;
+import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
+import com.Puj0.RPGSpringBoot.domain.random.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Animal;
-import com.Puj0.RPGSpringBoot.mapper.ActerMapper;
-import com.Puj0.RPGSpringBoot.repository.ActerRepository;
+import com.Puj0.RPGSpringBoot.mapper.IActerMapper;
+import com.Puj0.RPGSpringBoot.repository.IActerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,27 +29,34 @@ class ActerServiceTest {
     private static final int INITIATIVE = 5;
 
     @Mock
-    private ActerRepository acterRepository;
+    private IActerRepository acterRepository;
 
     @Mock
     private IRandom random;
 
     @Mock
-    private ActerMapper acterMapper;
+    private IActerMapper acterMapper;
+
+    @Mock
+    private MinimumHeroes acterRange;
+
+    @Mock
+    private INameGenerator nameGenerator;
 
     @BeforeEach
     void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
 
-        acterService = new ActerService(acterRepository, random, acterMapper);
+        acterService = new ActerService(acterRepository, random, acterMapper, nameGenerator);
     }
 
     @Test
     void createActers() {
 
         when(random.nextInt(1,3)).thenReturn(1);
+        when(acterRange.getMinNumOfHeroes()).thenReturn(1);
 
-        acterService.createActers(1);
+        acterService.createActers(acterRange);
 
         verify(random, times(2)).nextInt(1,3);
 

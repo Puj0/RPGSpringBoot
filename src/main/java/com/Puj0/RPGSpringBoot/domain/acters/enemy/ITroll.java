@@ -1,6 +1,6 @@
 package com.Puj0.RPGSpringBoot.domain.acters.enemy;
 
-interface ITroll extends IEnemy{
+public interface ITroll extends IEnemy{
 
     void replenishHealth();
 }
