@@ -17,7 +17,5 @@ public interface IActerService {
 
     ActerView createActer(ActerRequest acterRequest);
 
-    List<ActerView> findByAttack(int attack);
-
-    List<ActerView> findByAttackAndInitiative(int attack, int initiative);
+    List<ActerView> findByAttackAndInitiative(int attack, Integer initiative);
 }

@@ -98,21 +98,14 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public List<ActerView> findByAttack(int attack) {
-        List<Acter> acterList = acterRepository.findByAttack(attack);
+    public List<ActerView> findByAttackAndInitiative(int attack, Integer initiative) {
 
-        if (acterList.isEmpty()){
-            return new ArrayList<>();
+        List<Acter> acterList;
+        if (initiative == null) {
+            acterList = acterRepository.findByAttack(attack);
         } else {
-            return acterList.stream()
-                    .map(acterMapper::map)
-                    .collect(Collectors.toList());
+            acterList = acterRepository.findByAttackAndInitiative(attack, initiative);
         }
-    }
-
-    @Override
-    public List<ActerView> findByAttackAndInitiative(int attack, int initiative) {
-        List<Acter> acterList = acterRepository.findByAttackAndInitiative(attack, initiative);
 
         if (acterList.isEmpty()){
             return new ArrayList<>();

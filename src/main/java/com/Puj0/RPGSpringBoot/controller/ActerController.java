@@ -46,11 +46,13 @@ class ActerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+//    @GetMapping(value = "/")
+//    public ResponseEntity<List<ActerView>> getActersByAttack(@RequestParam("attack") int attack){
+//        return new ResponseEntity<>(acterService.findByAttack(attack), HttpStatus.OK);
+//    }
+
     @GetMapping(value = "/")
     public ResponseEntity<List<ActerView>> getActersByAttackAndInitiative(@RequestParam("attack") int attack, @RequestParam(value = "initiative", required = false) Integer initiative){
-        if (initiative == null){
-            return new ResponseEntity<>(acterService.findByAttack(attack), HttpStatus.OK);
-        }
         return new ResponseEntity<>(acterService.findByAttackAndInitiative(attack, initiative), HttpStatus.OK);
     }
 }
