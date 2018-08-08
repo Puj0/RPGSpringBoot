@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -81,12 +82,13 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public List<GameView> findAll(Specification<Game> specification) {
-        List<Game> games = gameRepository.findAll(specification);
-        List<GameView> gameViewList = new ArrayList<>();
-        for(Game game : games){
-            gameViewList.add(gameMapper.map(game));
+    public List<GameView> findByTotalRounds(int totalRounds) {
+        if (gameRepository.findByTotalRounds(totalRounds).isEmpty()){
+            return new ArrayList<>();
+        } else {
+            return gameRepository.findByTotalRounds(totalRounds).stream()
+                    .map(gameMapper::map)
+                    .collect(Collectors.toList());
         }
-        return gameViewList;
     }
 }

@@ -13,5 +13,5 @@ public interface IGameService {
 
     void startGame(GameRequest gameRequest);
 
-    List<GameView> findAll(Specification<Game> specification);
+    List<GameView> findByTotalRounds(int totalRounds);
 }

@@ -15,11 +15,12 @@ import com.Puj0.RPGSpringBoot.view.ActerRequest;
 import com.Puj0.RPGSpringBoot.view.ActerView;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -97,13 +98,29 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public List<ActerView> findAll(Specification<Acter> specification) {
-        List<Acter> games = acterRepository.findAll(specification);
-        List<ActerView> gameViewList = new ArrayList<>();
-        for(Acter game : games){
-            gameViewList.add(acterMapper.map(game));
+    public List<ActerView> findByAttack(int attack) {
+        List<Acter> acterList = acterRepository.findByAttack(attack);
+
+        if (acterList.isEmpty()){
+            return new ArrayList<>();
+        } else {
+            return acterList.stream()
+                    .map(acterMapper::map)
+                    .collect(Collectors.toList());
         }
-        return gameViewList;
+    }
+
+    @Override
+    public List<ActerView> findByAttackAndInitiative(int attack, int initiative) {
+        List<Acter> acterList = acterRepository.findByAttackAndInitiative(attack, initiative);
+
+        if (acterList.isEmpty()){
+            return new ArrayList<>();
+        } else {
+            return acterList.stream()
+                    .map(acterMapper::map)
+                    .collect(Collectors.toList());
+        }
     }
 
     private List<Hero> createHeroes(int numOfHeroes) {

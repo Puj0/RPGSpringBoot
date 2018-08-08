@@ -1,8 +1,7 @@
 package com.Puj0.RPGSpringBoot.controller;
 
 import com.Puj0.RPGSpringBoot.domain.game.Game;
-import com.Puj0.RPGSpringBoot.filter.GameSpecification;
-import com.Puj0.RPGSpringBoot.filter.GameSpecificationBuilder;
+import com.Puj0.RPGSpringBoot.view.ActerView;
 import com.Puj0.RPGSpringBoot.view.GameRequest;
 import com.Puj0.RPGSpringBoot.view.GameView;
 import com.Puj0.RPGSpringBoot.service.IGameService;
@@ -43,15 +42,7 @@ class GameController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<GameView>> getFilteredGames(@RequestParam(value = "filter") String filter){
-        GameSpecificationBuilder builder = new GameSpecificationBuilder();
-        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
-        Matcher matcher = pattern.matcher(filter + ",");
-        while(matcher.find()){
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-
-        Specification<Game> specification = builder.build();
-        return new ResponseEntity<>(gameService.findAll(specification), HttpStatus.OK);
+    public ResponseEntity<List<GameView>> getFilteredActers(@RequestParam("totalRounds") int totalRounds){
+        return new ResponseEntity<>(gameService.findByTotalRounds(totalRounds), HttpStatus.OK);
     }
 }

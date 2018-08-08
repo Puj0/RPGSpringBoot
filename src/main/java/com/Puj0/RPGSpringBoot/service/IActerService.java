@@ -17,5 +17,7 @@ public interface IActerService {
 
     ActerView createActer(ActerRequest acterRequest);
 
-    List<ActerView> findAll(Specification<Acter> specification);
+    List<ActerView> findByAttack(int attack);
+
+    List<ActerView> findByAttackAndInitiative(int attack, int initiative);
 }
