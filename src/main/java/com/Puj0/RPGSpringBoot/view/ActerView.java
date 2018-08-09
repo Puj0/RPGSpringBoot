@@ -1,6 +1,6 @@
 package com.Puj0.RPGSpringBoot.view;
 
-import com.Puj0.RPGSpringBoot.domain.acters.ActerClass;
+import com.Puj0.RPGSpringBoot.domain.acters.ActerType;
 import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class ActerView {
 
     private int initiative;
 
-    private ActerClass className;
+    private ActerType className;
 
     private RoleClass roleClass;
 }

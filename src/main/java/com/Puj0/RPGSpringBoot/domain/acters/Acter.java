@@ -4,7 +4,6 @@ import com.Puj0.RPGSpringBoot.domain.acters.hero.RoleClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
@@ -41,7 +40,7 @@ public abstract class Acter {
     public RoleClass roleClass;
 
     @Transient
-    private ActerClass className;
+    private ActerType className;
 
     public void defend(int damage){
         if (damage > 0) {
@@ -49,8 +48,8 @@ public abstract class Acter {
         }
     }
 
-    public ActerClass getClassName(){
-        return ActerClass.valueOf(this.getClass().getSimpleName().toUpperCase());
+    public ActerType getClassName(){
+        return ActerType.valueOf(this.getClass().getSimpleName().toUpperCase());
     }
 
     public RoleClass getRoleClass(){

@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,11 +44,6 @@ class ActerController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
-//    @GetMapping(value = "/")
-//    public ResponseEntity<List<ActerView>> getActersByAttack(@RequestParam("attack") int attack){
-//        return new ResponseEntity<>(acterService.findByAttack(attack), HttpStatus.OK);
-//    }
 
     @GetMapping(value = "/")
     public ResponseEntity<List<ActerView>> getActersByAttackAndInitiative(@RequestParam("attack") int attack, @RequestParam(value = "initiative", required = false) Integer initiative){

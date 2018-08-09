@@ -77,7 +77,6 @@ class ActerControllerTest {
 
         MvcResult result = mockMvc.perform(post("/acter/addActers/{minNumOfHeroes}", "1"))
                 .andExpect(status().isOk())
-//                .andExpect(redirectedUrl("/acter"))
                 .andExpect(model().attributeExists("acter"))
                 .andExpect(model().attribute("acter", hasProperty("id", is(1))))
                 .andReturn();

@@ -1,6 +1,6 @@
 package com.Puj0.RPGSpringBoot.domain.acters;
 
-public enum ActerClass {
+public enum ActerType {
 
     ANIMAL, HERO, TROLL
 }
