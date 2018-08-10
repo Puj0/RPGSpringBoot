@@ -1,12 +1,14 @@
 package com.Puj0.RPGSpringBoot.service;
 
 import com.Puj0.RPGSpringBoot.domain.INameGenerator;
+import com.Puj0.RPGSpringBoot.domain.SearchParameters;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.random.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.domain.acters.enemy.Animal;
 import com.Puj0.RPGSpringBoot.mapper.IActerMapper;
 import com.Puj0.RPGSpringBoot.repository.IActerRepository;
+import com.Puj0.RPGSpringBoot.view.ActerView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -43,6 +45,9 @@ class ActerServiceTest {
     @Mock
     private INameGenerator nameGenerator;
 
+    @Mock
+    private SearchParameters searchParameters;
+
     @BeforeEach
     void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
@@ -55,12 +60,14 @@ class ActerServiceTest {
 
         when(random.nextInt(1,3)).thenReturn(1);
         when(acterRange.getMinNumOfHeroes()).thenReturn(1);
+        when(searchParameters.getAttack()).thenReturn(null);
+        when(searchParameters.getInitiative()).thenReturn(null);
 
         acterService.createActers(acterRange);
 
         verify(random, times(2)).nextInt(1,3);
 
-        assertEquals(2, acterService.getAllActers().size());
+        assertEquals(2, acterService.getActers(searchParameters).size());
 
     }
 
@@ -68,11 +75,13 @@ class ActerServiceTest {
     void allActers() {
 
         Acter acter = new Animal(NAME, HEALTH_POINTS, ATTACK, DEFENCE, INITIATIVE);
-        ArrayList<Acter> acterData = new ArrayList<>();
-        acterData.add(acter);
+        ArrayList<ActerView> acterData = new ArrayList<>();
+        acterData.add(acterMapper.map(acter));
 
-        when(acterService.getAllActers()).thenReturn(acterData);
-        List<Acter> acters = acterService.getAllActers();
+        when(searchParameters.getAttack()).thenReturn(null);
+        when(searchParameters.getInitiative()).thenReturn(null);
+        when(acterService.getActers(searchParameters)).thenReturn(acterData);
+        List<ActerView> acters = acterService.getActers(searchParameters);
 
         assertEquals(acters.size(), 1);
         verify(acterRepository, times(1)).findAll();

@@ -25,7 +25,7 @@ class GameController {
 
     @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GameView> getGame(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<GameView> getGame(@PathVariable("id") String id) {
         log.info("ID = {}", id);
         return new ResponseEntity<>(gameService.getGame(Long.parseLong(id)), HttpStatus.OK);
     }

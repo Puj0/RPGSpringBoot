@@ -1,6 +1,7 @@
 package com.Puj0.RPGSpringBoot.service;
 
 import com.Puj0.RPGSpringBoot.domain.INameGenerator;
+import com.Puj0.RPGSpringBoot.domain.SearchParameters;
 import com.Puj0.RPGSpringBoot.domain.acters.*;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.random.IRandom;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -85,11 +85,6 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public List<Acter> getAllActers() {
-        return acterRepository.findAll();
-    }
-
-    @Override
     public ActerView createActer(ActerRequest acterRequest) {
         ActerFactory acterFactory = new ActerFactory();
         Acter acter = acterFactory.createActer(acterRequest);
@@ -98,14 +93,11 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public List<ActerView> findByAttackAndInitiative(int attack, Integer initiative) {
+    public List<ActerView> getActers(SearchParameters values) {
 
-        List<Acter> acterList;
-        if (initiative == null) {
-            acterList = acterRepository.findByAttack(attack);
-        } else {
-            acterList = acterRepository.findByAttackAndInitiative(attack, initiative);
-        }
+        Integer attack = values.getAttack();
+        Integer initiative = values.getInitiative();
+        List<Acter> acterList = getActerList(attack, initiative);
 
         if (acterList.isEmpty()){
             return new ArrayList<>();
@@ -114,6 +106,23 @@ public class ActerService implements IActerService {
                     .map(acterMapper::map)
                     .collect(Collectors.toList());
         }
+    }
+
+    private List<Acter> getActerList(Integer attack, Integer initiative) {
+
+        boolean attackExists = (attack != null);
+        boolean initiativeExists = (initiative != null);
+
+        if (attackExists && initiativeExists) {
+            return acterRepository.findByAttackAndInitiative(attack, initiative);
+        }
+        if (attackExists) {
+            return acterRepository.findByAttack(attack);
+        }
+        if (initiativeExists) {
+            return acterRepository.findByInitiative(initiative);
+        }
+        return acterRepository.findAll();
     }
 
     private List<Hero> createHeroes(int numOfHeroes) {

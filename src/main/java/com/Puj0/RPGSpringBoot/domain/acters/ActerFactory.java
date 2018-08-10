@@ -8,7 +8,7 @@ import com.Puj0.RPGSpringBoot.view.ActerRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ActerFactory implements IActerAbstractFactory {
+public class ActerFactory implements IActerFactory {
 
     @Override
     public Acter createActer(ActerRequest acterRequest) {

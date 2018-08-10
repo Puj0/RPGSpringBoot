@@ -1,5 +1,6 @@
 package com.Puj0.RPGSpringBoot.controller;
 
+import com.Puj0.RPGSpringBoot.domain.SearchParameters;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.service.IActerService;
@@ -25,11 +26,6 @@ class ActerController {
         this.acterService = acterService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Acter>> getActers() {
-        return new ResponseEntity<>(acterService.getAllActers(), HttpStatus.OK);
-    }
-
     @PostMapping(value = "/addActers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Acter>> addActers(@Valid @RequestBody MinimumHeroes minNumOfHeroes) {
         log.info("Minimum number of Heroes = {}", minNumOfHeroes.getMinNumOfHeroes());
@@ -45,8 +41,8 @@ class ActerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity<List<ActerView>> getActersByAttackAndInitiative(@RequestParam("attack") int attack, @RequestParam(value = "initiative", required = false) Integer initiative){
-        return new ResponseEntity<>(acterService.findByAttackAndInitiative(attack, initiative), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<ActerView>> getActers(SearchParameters values){
+        return new ResponseEntity<>(acterService.getActers(values), HttpStatus.OK);
     }
 }

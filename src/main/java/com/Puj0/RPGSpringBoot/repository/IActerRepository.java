@@ -16,4 +16,6 @@ public interface IActerRepository extends JpaRepository<Acter, Long> {
     List<Acter> findByAttack(int attack);
 
     List<Acter> findByAttackAndInitiative(int attack, int initiative);
+
+    List<Acter> findByInitiative(int initiative);
 }
