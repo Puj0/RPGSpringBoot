@@ -30,13 +30,13 @@ class ActerController {
         return new ResponseEntity<>(acterService.getAllActers(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/addActers/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/addActers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Acter>> addActers(@Valid @RequestBody MinimumHeroes minNumOfHeroes) {
         log.info("Minimum number of Heroes = {}", minNumOfHeroes.getMinNumOfHeroes());
         return new ResponseEntity<>(acterService.createActers(minNumOfHeroes), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ActerView> addActer(@Valid @RequestBody ActerRequest acterRequest) {
         ActerView acterView = acterService.createActer(acterRequest);
         if (acterView != null){
@@ -45,7 +45,7 @@ class ActerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/search")
     public ResponseEntity<List<ActerView>> getActersByAttackAndInitiative(@RequestParam("attack") int attack, @RequestParam(value = "initiative", required = false) Integer initiative){
         return new ResponseEntity<>(acterService.findByAttackAndInitiative(attack, initiative), HttpStatus.OK);
     }

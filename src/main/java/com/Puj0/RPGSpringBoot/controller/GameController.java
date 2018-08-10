@@ -36,7 +36,7 @@ class GameController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/search")
     public ResponseEntity<List<GameView>> getFilteredActers(@RequestParam("totalRounds") int totalRounds){
         return new ResponseEntity<>(gameService.findByTotalRounds(totalRounds), HttpStatus.OK);
     }
