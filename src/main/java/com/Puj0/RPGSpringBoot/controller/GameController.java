@@ -1,5 +1,6 @@
 package com.Puj0.RPGSpringBoot.controller;
 
+import com.Puj0.RPGSpringBoot.domain.GameSearchRequest;
 import com.Puj0.RPGSpringBoot.view.GameRequest;
 import com.Puj0.RPGSpringBoot.view.GameView;
 import com.Puj0.RPGSpringBoot.service.IGameService;
@@ -36,8 +37,8 @@ class GameController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity<List<GameView>> getFilteredActers(@RequestParam("totalRounds") int totalRounds){
-        return new ResponseEntity<>(gameService.findByTotalRounds(totalRounds), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<GameView>> getGames(GameSearchRequest request){
+        return new ResponseEntity<>(gameService.getGames(request), HttpStatus.OK);
     }
 }

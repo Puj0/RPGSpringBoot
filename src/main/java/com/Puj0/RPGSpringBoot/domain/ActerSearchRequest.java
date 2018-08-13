@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class SearchParameters {
+public class ActerSearchRequest {
 
     private Integer attack;
     private Integer initiative;

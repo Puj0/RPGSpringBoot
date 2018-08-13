@@ -1,6 +1,6 @@
 package com.Puj0.RPGSpringBoot.service;
 
-import com.Puj0.RPGSpringBoot.domain.SearchParameters;
+import com.Puj0.RPGSpringBoot.domain.ActerSearchRequest;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.view.ActerRequest;
@@ -14,5 +14,5 @@ public interface IActerService {
 
     ActerView createActer(ActerRequest acterRequest);
 
-    List<ActerView> getActers(SearchParameters values);
+    List<ActerView> getActers(ActerSearchRequest values);
 }

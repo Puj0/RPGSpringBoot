@@ -1,7 +1,7 @@
 package com.Puj0.RPGSpringBoot.service;
 
 import com.Puj0.RPGSpringBoot.domain.INameGenerator;
-import com.Puj0.RPGSpringBoot.domain.SearchParameters;
+import com.Puj0.RPGSpringBoot.domain.ActerSearchRequest;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.random.IRandom;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
@@ -46,7 +46,7 @@ class ActerServiceTest {
     private INameGenerator nameGenerator;
 
     @Mock
-    private SearchParameters searchParameters;
+    private ActerSearchRequest acterSearchRequest;
 
     @BeforeEach
     void setUp() throws Exception{
@@ -60,14 +60,14 @@ class ActerServiceTest {
 
         when(random.nextInt(1,3)).thenReturn(1);
         when(acterRange.getMinNumOfHeroes()).thenReturn(1);
-        when(searchParameters.getAttack()).thenReturn(null);
-        when(searchParameters.getInitiative()).thenReturn(null);
+        when(acterSearchRequest.getAttack()).thenReturn(null);
+        when(acterSearchRequest.getInitiative()).thenReturn(null);
 
         acterService.createActers(acterRange);
 
         verify(random, times(2)).nextInt(1,3);
 
-        assertEquals(2, acterService.getActers(searchParameters).size());
+        assertEquals(2, acterService.getActers(acterSearchRequest).size());
 
     }
 
@@ -78,10 +78,10 @@ class ActerServiceTest {
         ArrayList<ActerView> acterData = new ArrayList<>();
         acterData.add(acterMapper.map(acter));
 
-        when(searchParameters.getAttack()).thenReturn(null);
-        when(searchParameters.getInitiative()).thenReturn(null);
-        when(acterService.getActers(searchParameters)).thenReturn(acterData);
-        List<ActerView> acters = acterService.getActers(searchParameters);
+        when(acterSearchRequest.getAttack()).thenReturn(null);
+        when(acterSearchRequest.getInitiative()).thenReturn(null);
+        when(acterService.getActers(acterSearchRequest)).thenReturn(acterData);
+        List<ActerView> acters = acterService.getActers(acterSearchRequest);
 
         assertEquals(acters.size(), 1);
         verify(acterRepository, times(1)).findAll();

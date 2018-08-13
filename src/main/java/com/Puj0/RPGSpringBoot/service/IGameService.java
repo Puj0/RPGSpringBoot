@@ -1,5 +1,6 @@
 package com.Puj0.RPGSpringBoot.service;
 
+import com.Puj0.RPGSpringBoot.domain.GameSearchRequest;
 import com.Puj0.RPGSpringBoot.view.GameRequest;
 import com.Puj0.RPGSpringBoot.view.GameView;
 
@@ -11,5 +12,5 @@ public interface IGameService {
 
     void startGame(GameRequest gameRequest);
 
-    List<GameView> findByTotalRounds(int totalRounds);
+    List<GameView> getGames(GameSearchRequest request);
 }

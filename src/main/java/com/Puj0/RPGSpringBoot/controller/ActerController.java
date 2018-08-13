@@ -1,6 +1,6 @@
 package com.Puj0.RPGSpringBoot.controller;
 
-import com.Puj0.RPGSpringBoot.domain.SearchParameters;
+import com.Puj0.RPGSpringBoot.domain.ActerSearchRequest;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
 import com.Puj0.RPGSpringBoot.service.IActerService;
@@ -38,11 +38,12 @@ class ActerController {
         if (acterView != null){
             return new ResponseEntity<>(acterView, HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
-    public ResponseEntity<List<ActerView>> getActers(SearchParameters values){
+    public ResponseEntity<List<ActerView>> getActers(ActerSearchRequest values){
         return new ResponseEntity<>(acterService.getActers(values), HttpStatus.OK);
     }
 }

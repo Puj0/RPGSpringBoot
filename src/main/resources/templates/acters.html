@@ -1,70 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="acter-jquery.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org"/>
     <title>Role Play Game</title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
+    <link rel="stylesheet" href="rpg.css"/>
 </head>
 <body>
-<div class="container">
-    <h2>Acters</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Class Name</th>
-            <th>Name</th>
-            <th>Attack</th>
-            <th>Defence</th>
-            <th>Initiative</th>
-            <th>Main</th>
-            <th>RoleClass</th>
-            <th>Health Points</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="acter : ${acter}">
-            <td th:text="${acter.id}">null</td>
-            <td th:text="${acter.className}">null</td>
-            <td th:text="${acter.name}">null</td>
-            <td th:text="${acter.attack}">null</td>
-            <td th:text="${acter.defence}">null</td>
-            <td th:text="${acter.initiative}">null</td>
-            <td th:text="${acter.main}">null</td>
-            <td th:if="${acter != null}" th:text="${acter.roleClass}">null</td>
-            <td th:text="${acter.healthPoints}">null</td>
-        </tr>
-        </tbody>
-    </table>
-    <form method="GET" th:action="@{/games/start/}" modelAttribute="rounds">
-        <input type="number" name="rounds" th:value="*{rounds}">
-        <button type="submit" class="form-control">Start Game</button>
-    </form>
-    <form method="GET" th:action="@{/createActers/}" modelAttribute="minNumOfHeroes">
-        <input type="number" name="minNumOfHeroes" th:value="*{minNumOfHeroes}">
-        <input type="submit" value="Create Acters">
-    </form>
-    <form method="GET" th:action="@{/result/}" modelAttribute="id">
-        <input type="number" name="id" th:value="*{id}">
-        <input type="submit" value="Get Result">
-    </form>
+<div>
+    <h1>Role Play Game</h1>
+    <div class="tab">
+        <button id = "tabActers">Acters</button>
+        <button id = "tabGames">Games</button>
+    </div>
+    <div id = "Acters" class = "tabTable">
+        <h2>Acters</h2>
+        <table id = "acter-table">
+            <tr>
+                <th>ID</th>
+                <th>Class Name</th>
+                <th>Name</th>
+                <th>Attack</th>
+                <th>Defence</th>
+                <th>Initiative</th>
+                <th>Main</th>
+                <th>RoleClass</th>
+                <th>Health Points</th>
+            </tr>
+        </table>
+    </div>
 
+    <div id = "Games" class = "tabTable">
+            <h2>Games</h2>
+            <table id = "game-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Result</th>
+                    <th>Total Rounds</th>
+                </tr>
+            </table>
+        </div>
 </div>
 </body>
 </html>

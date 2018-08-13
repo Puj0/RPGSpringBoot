@@ -1,5 +1,6 @@
 package com.Puj0.RPGSpringBoot.service;
 
+import com.Puj0.RPGSpringBoot.domain.GameSearchRequest;
 import com.Puj0.RPGSpringBoot.domain.game.Game;
 import com.Puj0.RPGSpringBoot.domain.game.GameActer;
 import com.Puj0.RPGSpringBoot.domain.acters.Acter;
@@ -81,11 +82,21 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public List<GameView> findByTotalRounds(int totalRounds) {
-        if (gameRepository.findByTotalRounds(totalRounds).isEmpty()){
+    public List<GameView> getGames(GameSearchRequest request) {
+
+        Integer totalRounds = request.getTotalRounds();
+        List<Game> gameList;
+
+        if(totalRounds == null){
+            gameList = gameRepository.findAll();
+        } else {
+            gameList = gameRepository.findByTotalRounds(totalRounds);
+        }
+
+        if (gameList.isEmpty()){
             return new ArrayList<>();
         } else {
-            return gameRepository.findByTotalRounds(totalRounds).stream()
+            return gameList.stream()
                     .map(gameMapper::map)
                     .collect(Collectors.toList());
         }

@@ -1,0 +1,32 @@
+.tab {
+    overflow: hidden;
+    border: 1px solid #cccccc;
+    background-color: #f1f1f1;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+table#acter-table, #game-table{
+    width: 70%;
+    background-color: #3fd1e7;
+}
+
+body {
+    background-color: #defbfd;
+    margin-left: 1%;
+}
+
+form {
+    width: 40%;
+    background-color: #c6f5f8;
+    border-color: #a6f0f5;
+    background-size: 40%;
+}

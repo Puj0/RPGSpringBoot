@@ -1,7 +1,7 @@
 package com.Puj0.RPGSpringBoot.service;
 
 import com.Puj0.RPGSpringBoot.domain.INameGenerator;
-import com.Puj0.RPGSpringBoot.domain.SearchParameters;
+import com.Puj0.RPGSpringBoot.domain.ActerSearchRequest;
 import com.Puj0.RPGSpringBoot.domain.acters.*;
 import com.Puj0.RPGSpringBoot.domain.game.MinimumHeroes;
 import com.Puj0.RPGSpringBoot.domain.random.IRandom;
@@ -93,7 +93,7 @@ public class ActerService implements IActerService {
     }
 
     @Override
-    public List<ActerView> getActers(SearchParameters values) {
+    public List<ActerView> getActers(ActerSearchRequest values) {
 
         Integer attack = values.getAttack();
         Integer initiative = values.getInitiative();
