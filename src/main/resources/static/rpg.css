@@ -19,6 +19,8 @@ table#acter-table, #game-table{
     margin-left: 10%;
     background-color: #3fd1e73f;
     empty-cells: hide;
+    height: 80%;
+    overflow-x:auto;
 }
 
 body {

@@ -2,6 +2,7 @@ $(document).ready(function(){
     $("#Games").hide();
     $("#Acters").show();
     loadActers();
+    loadGames();
 });
 
 $(document).on("click", "#tabActers", function(){
@@ -70,7 +71,6 @@ function loadGames(){
                 "<td>" + game.totalRounds + "</td></tr>");
         });
         $("#game-table").append("</tbody>");
-        clearNullCells();
     });
 };
 
@@ -107,6 +107,22 @@ $(document).on("click", "#createActers", function(){
             clearNullCells();
         },
         dataType: "json"
+      });
+});
+
+$(document).on("click", "#runGame", function(){
+    var rounds = $("#roundsToRun").val();
+    $.ajax({
+        type: "POST",
+        url: "/games/",
+        data: JSON.stringify({
+            "rounds": rounds
+        }),
+        contentType:"application/json; charset=utf-8",
+        success: function(){
+            loadGames();
+        },
+        dataType: null
       });
 });
 

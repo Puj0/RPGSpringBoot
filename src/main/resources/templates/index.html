@@ -24,8 +24,8 @@
     </div>
     <div id = "Acters" class = "tabTable">
         <h2>Acters</h2>
-        <input type="number" id="attackValue" placeholder="Attack">
-        <input type="number" id="initiativeValue" placeholder="Initiative">
+        <input type = "number" min = "0" id = "attackValue" placeholder = "Attack">
+        <input type = "number" min = "0" id = "initiativeValue" placeholder = "Initiative">
         <button id = "loadActers">Load</button>
         
         <input type="number" id="minNumOfHeroes" placeholder="Minimum number of Heroes">
@@ -49,8 +49,10 @@
 
     <div id = "Games" class = "tabTable">
         <h2>Games</h2>
-        <input type="number" id="roundsValue" placeholder="Rounds">
+        <input type = "number" id = "roundsValue" placeholder = "Rounds">
         <button id = "loadGames">Load</button>
+        <input type = "number" id = "roundsToRun" default = "10" placeholder="Rounds to run...">
+        <button id = "runGame">Run</button>
         <table id = "game-table">
             <thead>
                 <tr>
