@@ -24,31 +24,43 @@
     </div>
     <div id = "Acters" class = "tabTable">
         <h2>Acters</h2>
+        <input type="number" id="attackValue" placeholder="Attack">
+        <input type="number" id="initiativeValue" placeholder="Initiative">
+        <button id = "loadActers">Load</button>
+        
+        <input type="number" id="minNumOfHeroes" placeholder="Minimum number of Heroes">
+        <button id = "createActers">Create new Acters</button>
+        
         <table id = "acter-table">
-            <tr>
-                <th>ID</th>
-                <th>Class Name</th>
-                <th>Name</th>
-                <th>Attack</th>
-                <th>Defence</th>
-                <th>Initiative</th>
-                <th>Main</th>
-                <th>RoleClass</th>
-                <th>Health Points</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Class Name</th>
+                    <th>Name</th>
+                    <th>Attack</th>
+                    <th>Defence</th>
+                    <th>Initiative</th>
+                    <th>RoleClass</th>
+                    <th>Health Points</th>
+                </tr>
+            </thead>
         </table>
     </div>
 
     <div id = "Games" class = "tabTable">
-            <h2>Games</h2>
-            <table id = "game-table">
+        <h2>Games</h2>
+        <input type="number" id="roundsValue" placeholder="Rounds">
+        <button id = "loadGames">Load</button>
+        <table id = "game-table">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Result</th>
                     <th>Total Rounds</th>
                 </tr>
-            </table>
-        </div>
+            </thead>
+        </table>
+    </div>
 </div>
 </body>
 </html>

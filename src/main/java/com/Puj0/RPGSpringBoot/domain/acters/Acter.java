@@ -36,7 +36,7 @@ public abstract class Acter {
     @Column(nullable = false)
     private String name;
 
-    @Transient
+    @Column
     public RoleClass roleClass;
 
     @Transient

@@ -1,37 +1,112 @@
 $(document).ready(function(){
     $("#Games").hide();
     $("#Acters").show();
+    loadActers();
 });
 
 $(document).on("click", "#tabActers", function(){
-    console.log("tabActers");
     $("#Games").hide();
     $("#Acters").show();
 });
 
 $(document).on("click", "#tabGames", function(){
-    console.log("tabGames");
     $("#Games").show();
     $("#Acters").hide();
 });
 
-$('#addActer').click(function(){
-    console.log("Hello addActer")
-    var query = $('#query').valueof();
-    $.ajax({
-        url: '/acters',
-        type: "POST",
-        data: query,
-        dataType: 'application/json; charset=utf-8',
-        success: function (data) {
-            alert(data);
-            for (var i = 0; i < data.length; i++) {
-                content = data[x].id;
-                content += "<br>";
-                content += data[x].name;
-                content += "<br>";
-                $(content).appendTo("#ActersList");
-            }
+$(document).on("click", "#loadActers", function(){
+    loadActers();
+});
+
+function loadActers(){
+    var url = "/acters?";
+    var attack = $("#attackValue").val();
+    var initiative = $("#initiativeValue").val();
+    if (attack != 0){
+        url += "attack=" + attack;
+        if (initiative != 0){
+            url += "&";
         }
-    })
-})
+    }
+    if (initiative != 0){
+        url += "initiative=" + initiative;
+    }
+    $.get(url, function(data){
+        $("#acter-table tbody").remove();
+        $("#acter-table").append("<tbody>");
+        $.each(data,function(i,acter) {            
+            $("#acter-table").append(
+                "<tr><td>" + acter.id + "</td>" +
+                "<td>" + acter.className + "</td>" +
+                "<td>" + acter.name + "</td>" +
+                "<td>" + acter.attack + "</td>" +
+                "<td>" + acter.defence + "</td>" +
+                "<td>" + acter.initiative + "</td>" +
+                "<td>" + acter.roleClass + "</td>" +
+                "<td>" + acter.healthPoints + "</td></tr>");
+        });
+        $("#acter-table").append("</tbody>");
+        clearNullCells();
+    });
+};
+
+$(document).on("click", "#loadGames", function(){
+    loadGames();
+});
+
+function loadGames(){
+    var url = "/games?";
+    var rounds = $("#roundsValue").val();
+    if (rounds != 0){
+        url += "totalRounds=" + rounds;
+    }
+    $.get(url, function(data){
+        $("#game-table tbody").remove();
+        $("#game-table").append("<tbody>");
+        $.each(data, function(i, game) {
+            $("#game-table").append(
+                "<tr><td>" + game.id + "</td>" +
+                "<td>" + game.result + "</td>" +
+                "<td>" + game.totalRounds + "</td></tr>");
+        });
+        $("#game-table").append("</tbody>");
+        clearNullCells();
+    });
+};
+
+function clearNullCells(){
+    $("td:contains(null)").each(function(){
+        $(this).text("");
+    });
+};
+
+$(document).on("click", "#createActers", function(){
+    var minNum = $("#minNumOfHeroes").val();
+    $.ajax({
+        type: "POST",
+        url: "/acters/addActers/",
+        data: JSON.stringify({
+            "minNumOfHeroes": minNum
+        }),
+        contentType:"application/json; charset=utf-8",
+        success: function(data){
+            $("#acter-table tbody").remove();
+            $("#acter-table").append("<tbody>");
+            $.each(data,function(i,acter) {            
+                $("#acter-table").append(
+                    "<tr><td>" + acter.id + "</td>" +
+                    "<td>" + acter.className + "</td>" +
+                    "<td>" + acter.name + "</td>" +
+                    "<td>" + acter.attack + "</td>" +
+                    "<td>" + acter.defence + "</td>" +
+                    "<td>" + acter.initiative + "</td>" +
+                    "<td>" + acter.roleClass + "</td>" +
+                    "<td>" + acter.healthPoints + "</td></tr>");
+            });
+            $("#acter-table").append("</tbody>");
+            clearNullCells();
+        },
+        dataType: "json"
+      });
+});
+

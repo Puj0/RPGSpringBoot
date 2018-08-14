@@ -7,21 +7,24 @@
 .tab button {
     background-color: inherit;
     float: left;
-    border: none;
+    border: 1px;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 14px;
     transition: 0.3s;
 }
 
 table#acter-table, #game-table{
-    width: 70%;
-    background-color: #3fd1e7;
+    width: 80%;
+    margin-left: 10%;
+    background-color: #3fd1e73f;
+    empty-cells: hide;
 }
 
 body {
     background-color: #defbfd;
     margin-left: 1%;
+    font-family: 'NightWarriorFont', Fallback, sans-serif;
 }
 
 form {
@@ -29,4 +32,21 @@ form {
     background-color: #c6f5f8;
     border-color: #a6f0f5;
     background-size: 40%;
+}
+
+@font-face {
+    font-family: 'NightWarriorFont';
+    src: url('Nightwarrior.eot'); /* IE9 Compat Modes */
+    src: url('Nightwarrior.woff2') format('woff2'), /* Super Modern Browsers */
+         url('Nightwarrior.woff') format('woff'), /* Pretty Modern Browsers */
+         url('Nightwarrior.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('Nightwarrior.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+thead {
+    border-bottom: 2px solid black;
+}
+
+td, th {
+    font-size: 25px;
 }
