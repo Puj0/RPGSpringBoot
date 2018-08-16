@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="acter-jquery.js"></script>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
     <title>Role Play Game</title>
     <link rel="stylesheet" href="rpg.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div>
@@ -24,45 +17,111 @@
     </div>
     <div id = "Acters" class = "tabTable">
         <h2>Acters</h2>
-        <input type = "number" min = "0" id = "attackValue" placeholder = "Attack">
-        <input type = "number" min = "0" id = "initiativeValue" placeholder = "Initiative">
-        <button id = "loadActers">Load</button>
-        
-        <input type="number" id="minNumOfHeroes" placeholder="Minimum number of Heroes">
-        <button id = "createActers">Create new Acters</button>
-        
-        <table id = "acter-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Class Name</th>
-                    <th>Name</th>
-                    <th>Attack</th>
-                    <th>Defence</th>
-                    <th>Initiative</th>
-                    <th>RoleClass</th>
-                    <th>Health Points</th>
-                </tr>
-            </thead>
-        </table>
+        <div id = "filterForm">
+            <h3>Filter </h3>
+            <label>Attack: </label>
+            <input type = "number" min = "0" id = "attackValue" placeholder = "Attack">
+            <label>Initiative: </label>
+            <input type = "number" min = "0" id = "initiativeValue" placeholder = "Initiative">
+            <button id = "loadActers">Filter</button>
+            
+            <input type="number" min = "0" id="minNumOfHeroes" placeholder="Minimum number of Heroes">
+            <button id = "createActers">Create new Acters</button>
+        </div>
+        <div id = "acterForm">
+            <label>Name: </label>
+            <input type = "text" id = "acterName" placeholder = "Name">
+            <label>Health Points: </label>
+            <input type = "number" min = "0" id = "acterHealth" placeholder = "Health Points">
+            <label>Attack: </label>
+            <input type = "number" min = "0" id = "acterAttack" placeholder = "Attack">
+            <label>Defence: </label>
+            <input type = "number" min = "0" id = "acterDefence" placeholder = "Defence">
+            <label>Initiative: </label>
+            <input type = "number" min = "0" id = "acterInitiative" placeholder = "Initiative">
+            <label>Type: </label>
+            <select id = "acterType">
+                <option value="hero">Hero</option>
+                <option value="troll">Troll</option>
+                <option value="animal">Animal</option>
+            </select>
+            <label>Hero Class: </label>
+            <select id = "heroRole">
+                <option value="barbarian">Barbarian</option>
+                <option value="bard">Bard</option>
+                <option value="cleric">Cleric</option>
+                <option value="druid">Druid</option>
+                <option value="fighter">Fighter</option>
+                <option value="monk">Monk</option>
+                <option value="paladin">Paladin</option>
+                <option value="ranger">Ranger</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="wizard">Wizard</option>
+            </select>
+            <button id = "createNewActer">Create Acter</button>
+        </div>
+
+        <div class = "tableDiv">
+            <table id = "acter-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Class Name</th>
+                        <th>Name</th>
+                        <th>Attack</th>
+                        <th>Defence</th>
+                        <th>Initiative</th>
+                        <th>RoleClass</th>
+                        <th>Health Points</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
     <div id = "Games" class = "tabTable">
         <h2>Games</h2>
-        <input type = "number" id = "roundsValue" placeholder = "Rounds">
-        <button id = "loadGames">Load</button>
-        <input type = "number" id = "roundsToRun" default = "10" placeholder="Rounds to run...">
-        <button id = "runGame">Run</button>
-        <table id = "game-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Result</th>
-                    <th>Total Rounds</th>
-                </tr>
-            </thead>
-        </table>
+        <div id = "gamesDiv">
+            <label>Rounds: </label>
+            <input type = "number" min = "0" id = "roundsValue" placeholder = "Rounds">
+            <button id = "loadGames">Load</button>
+            <div id = "gameTableDiv">
+                <table id = "game-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Result</th>
+                            <th>Total Rounds</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div id = "fightDiv">
+            <h3>Acters to fight</h3>
+            <div class = "tableDiv">
+                <table id = "fighterTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Class Name</th>
+                            <th>Name</th>
+                            <th>Attack</th>
+                            <th>Defence</th>
+                            <th>Initiative</th>
+                            <th>RoleClass</th>
+                            <th>Health Points</th>
+                            <th><input type="checkbox" class = "checkAll"/></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <label>Rounds to run: </label>
+            <input type = "number" min = "0" id = "roundsToRun" default = "10" placeholder="Rounds to run...">
+            <button id = "runGame">Run</button>
+        </div>
     </div>
 </div>
+<script src="acter-jquery.js"></script>
 </body>
 </html>

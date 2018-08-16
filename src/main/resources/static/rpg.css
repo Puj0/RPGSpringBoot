@@ -1,54 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
 .tab {
     overflow: hidden;
-    border: 1px solid #cccccc;
-    background-color: #f1f1f1;
+    border: 1px solid #565351;
+    background-color: #B24544;
 }
 
 .tab button {
-    background-color: inherit;
+    background-color: #983332;
     float: left;
-    border: 1px;
-    outline: none;
+    border: 1px solid gray;
+    margin-left: 10px;
+    margin-top: 2px;
+    margin-bottom: 1px;
+    outline: below;
     cursor: pointer;
     padding: 14px;
     transition: 0.3s;
 }
 
-table#acter-table, #game-table{
-    width: 80%;
-    margin-left: 10%;
-    background-color: #3fd1e73f;
-    empty-cells: hide;
-    height: 80%;
+table {
+    background-color: #E27876;
+    border: 1px solid #565351; 
+    border-spacing: 4px 2px;
+}
+
+#acter-table{
+    width: 75%;
+    margin-left: 12%;
+    float:center;
+}
+
+.tableDiv {
+    max-height: 70vh;
     overflow-x:auto;
+    overflow-y: auto;
+}
+
+#game-table{
+    float: left;
 }
 
 body {
-    background-color: #defbfd;
+    background-color: #C75A58;
     margin-left: 1%;
-    font-family: 'NightWarriorFont', Fallback, sans-serif;
+    font-family: 'NightWarriorFont';
 }
 
-form {
-    width: 40%;
-    background-color: #c6f5f8;
-    border-color: #a6f0f5;
-    background-size: 40%;
+body text{
+    color: #43403E;
+    size: 16px;
+}
+
+#filterForm {
+    display: table-row;
+    float: left;
+    position: relative;
+    width: 12%;
+}
+
+#filterForm label{
+    margin-left: 10%;
+}
+
+#filterForm input{
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 3px;
+}
+
+#gamesDiv {
+    display: table-row;
+    float: left;
+    position: relative;
+    width: 20%;
+    max-height: 70vh;
+    overflow-x:auto;
+    overflow-y: auto;
+}
+
+#fightDiv {
+    width: 70%;
+    margin-left: 30%;
+}
+
+#acterForm {
+    border-color: #202d2e;
+    float: right;
+    width: 12%;
+}
+
+#acterForm label{
+    margin-left:10%;
+}
+
+#acterForm input {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 3px;
+}
+
+#acterForm select {
+    width: 60%;
+    margin-left:10%;
+    margin-bottom: 5px;
+}
+
+#acterForm button, #filterForm button{
+    width: 80%;
+    margin: 10px;
 }
 
 @font-face {
     font-family: 'NightWarriorFont';
-    src: url('Nightwarrior.eot'); /* IE9 Compat Modes */
-    src: url('Nightwarrior.woff2') format('woff2'), /* Super Modern Browsers */
-         url('Nightwarrior.woff') format('woff'), /* Pretty Modern Browsers */
-         url('Nightwarrior.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('Nightwarrior.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
+    src: url('Nightwarrior.eot');
+    src: url('Nightwarrior.woff2') format('woff2'),
+         url('Nightwarrior.woff') format('woff'), 
+         url('Nightwarrior.ttf')  format('truetype'), 
+         url('Nightwarrior.svg#svgFontName') format('svg'); 
+} 
 
 thead {
     border-bottom: 2px solid black;
 }
 
 td, th {
-    font-size: 25px;
+    font-size: 24px;
+    color: #373432;
+    border-spacing: 4px 2px;
+}
+
+td, input, select{
+    font-family : Lato;
+}
+
+button {
+    font-family: 'NightWarriorFont';
+    font-size: 30px;
+    background-color: #B24544;
+    border-color: #E27876;
+}
+
+input, select {
+    background-color: #E27876;
+    border-color: #B24544;
+}
+
+input ::placeholder {
+    color: #565351;
 }

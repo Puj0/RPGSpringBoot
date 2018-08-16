@@ -13,7 +13,7 @@ public class ActerFactory implements IActerFactory {
     @Override
     public Acter createActer(ActerRequest acterRequest) {
         Acter acter;
-        switch (acterRequest.getClassName()) {
+        switch (acterRequest.getActerType()) {
             case HERO:
                 acter = new Hero(acterRequest.getAttack(), acterRequest.getDefence(), acterRequest.getHealthPoints(), acterRequest.getInitiative(),
                         acterRequest.getName(), RoleClass.values()[acterRequest.getRoleClass() % RoleClass.values().length]);

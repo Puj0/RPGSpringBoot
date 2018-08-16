@@ -31,7 +31,7 @@ public class ActerRequest {
     private int initiative;
 
     @NotNull
-    private ActerType className;
+    private ActerType acterType;
 
     private int roleClass;
 

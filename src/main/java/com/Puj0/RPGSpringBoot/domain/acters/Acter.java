@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@DiscriminatorColumn(name = "className")
+@DiscriminatorColumn(name = "acterType")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor
 public abstract class Acter {
