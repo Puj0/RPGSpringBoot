@@ -21,7 +21,7 @@ h1 {
     margin-bottom: 1px;
     outline: below;
     cursor: pointer;
-    padding: 14px;
+    padding: 1vw;
     transition: 0.3s;
 }
 
@@ -53,6 +53,7 @@ body {
     font-family: 'NightWarriorFont';
 }
 
+
 body text{
     color: #43403E;
     size: 16px;
@@ -83,6 +84,10 @@ body text{
     max-height: 70vh;
     overflow-x:auto;
     overflow-y: auto;
+}
+
+#gamesDiv > * {
+    margin-bottom: 2%;
 }
 
 #fightDiv {
@@ -131,7 +136,7 @@ thead {
 }
 
 td, th {
-    font-size: 24px;
+    font-size: 2vw;
     color: #373432;
     border-spacing: 4px 2px;
 }
@@ -142,7 +147,7 @@ td, input, select{
 
 button {
     font-family: 'NightWarriorFont';
-    font-size: 30px;
+    font-size: 2vw;
     background-color: #B24544;
     border-color: #E27876;
 }
@@ -154,4 +159,18 @@ input, select {
 
 input ::placeholder {
     color: #565351;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+}
+::-webkit-scrollbar-track-piece  {
+    background-color: #C75A58;
+    border-radius: 7px;
+}
+::-webkit-scrollbar-thumb:vertical {
+    border-radius: 7px;
+    height: 30px;
+    background-color: #983332;
 }

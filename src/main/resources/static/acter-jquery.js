@@ -99,6 +99,7 @@ function loadFighters(){
                 "<td><input type='checkbox' class = 'checkAll'/></td></tr>");
         });
         $("#fighterTable").append("</tbody>");
+        clearNullCells();
     });
 };
 
@@ -201,4 +202,6 @@ $(document).on("click", "#acterType", function(){
     $("#acterType").trigger("change");
 });
 
-
+$(".checkAll").click((function(){
+    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+}));
