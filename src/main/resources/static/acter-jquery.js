@@ -141,7 +141,8 @@ $(document).on("click", "#createNewActer", function(){
     var initiative = $("#acterInitiative").val();
     var type = $("#acterType").val().toUpperCase();
     var role = $("#acterType").val() == 'hero'? 
-        $("#heroRole").selectedIndex : null;
+        $("#heroRole").prop("selectedIndex") : null;
+        console.log($("#heroRole").prop("selectedIndex"));
     $.ajax({
         type: "POST",
         url: "/acters/",
