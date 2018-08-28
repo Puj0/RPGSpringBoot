@@ -9,11 +9,11 @@ h1 {
 .tab {
     overflow: hidden;
     border: 1px solid #565351;
-    background-color: #B24544;
+    background-color: #A59C8A;
 }
 
 .tab button {
-    background-color: #983332;
+    background-color: #897F6C;
     float: left;
     border: 1px solid gray;
     margin-left: 10px;
@@ -26,7 +26,7 @@ h1 {
 }
 
 table {
-    background-color: #E27876;
+    background-color: #D6CEBD;
     border: 1px solid #565351; 
     border-spacing: 4px 2px;
 }
@@ -48,9 +48,9 @@ table {
 }
 
 body {
-    background-color: #C75A58;
+    background-color: #C2BAA8;
     margin-left: 1%;
-    font-family: 'NightWarriorFont';
+    font-family: 'RingbearerMediumFont';
 }
 
 
@@ -123,12 +123,12 @@ body text{
 }
 
 @font-face {
-    font-family: 'NightWarriorFont';
-    src: url('Nightwarrior.eot');
-    src: url('Nightwarrior.woff2') format('woff2'),
-         url('Nightwarrior.woff') format('woff'), 
-         url('Nightwarrior.ttf')  format('truetype'), 
-         url('Nightwarrior.svg#svgFontName') format('svg'); 
+    font-family: 'RingbearerMediumFont';
+    src: url('RingbearerMedium.eot');
+    src: url('RingbearerMedium.woff2') format('woff2'),
+         url('RingbearerMedium.woff') format('woff'), 
+         url('RingbearerMedium.ttf')  format('truetype'), 
+         url('RingbearerMedium.svg#svgFontName') format('svg'); 
 } 
 
 thead {
@@ -146,15 +146,15 @@ td, input, select{
 }
 
 button {
-    font-family: 'NightWarriorFont';
+    font-family: 'RingbearerMediumFont';
     font-size: 2vw;
-    background-color: #B24544;
-    border-color: #E27876;
+    background-color: #A59C8A;
+    border-color: #D6CEBD;
 }
 
 input, select {
-    background-color: #E27876;
-    border-color: #B24544;
+    background-color: #D6CEBD;
+    border-color: #A59C8A;
 }
 
 input ::placeholder {
@@ -166,11 +166,11 @@ input ::placeholder {
     height: 15px;
 }
 ::-webkit-scrollbar-track-piece  {
-    background-color: #C75A58;
+    background-color: #C2BAA8;
     border-radius: 7px;
 }
 ::-webkit-scrollbar-thumb:vertical {
     border-radius: 7px;
     height: 30px;
-    background-color: #983332;
+    background-color: #897F6C;
 }
